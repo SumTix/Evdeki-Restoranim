@@ -1,0 +1,297 @@
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+    :root {
+        --sun-dried-red: #D93B30;
+        --garden-pesto: #5B913B;
+        --salted-cream: #EEF2EB;
+        --pickled-plum: #94536E;
+        --olive-branch: #9CA224;
+        --math-rage: #5B0A05;
+        --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Genel Yazı Tipi Montserrat Olarak Güncellendi */
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        font-family: 'Montserrat', sans-serif; 
+    }
+    
+    body {
+        background-color: var(--math-rage);
+        background-image: 
+            radial-gradient(circle at 20% 30%, var(--pickled-plum) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, var(--sun-dried-red) 0%, #000000 100%);
+        background-attachment: fixed;
+        color: var(--salted-cream);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+    }
+
+    /* --- SIDEBAR --- */
+    .sidebar {
+        position: fixed;
+        left: -300px;
+        top: 0;
+        width: 280px;
+        height: 100%;
+        background: rgba(91, 10, 5, 0.98);
+        backdrop-filter: blur(20px);
+        border-right: 1px solid var(--pickled-plum);
+        z-index: 1000;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 40px 20px 80px 20px; 
+        overflow: visible;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar h2 {
+        font-family: 'Playfair Display', serif;
+        color: var(--olive-branch);
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+        border-bottom: 1px solid var(--glass);
+        padding-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    .category-group { margin-bottom: 15px; }
+    
+    .main-cat {
+        padding: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--salted-cream);
+        display: flex;
+        justify-content: space-between;
+        transition: 0.3s;
+        border-radius: 8px;
+    }
+
+    .main-cat:hover { background: var(--glass); color: var(--olive-branch); }
+
+    .sub-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        padding-left: 20px;
+    }
+
+    .category-group.active .sub-menu { max-height: 250px; margin-top: 5px; overflow: visible; }
+    .category-group.active .main-cat { color: var(--olive-branch); }
+
+    .sub-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        font-size: 14px;
+        color: rgba(238, 242, 235, 0.7);
+        transition: 0.3s;
+        position: relative;
+    }
+
+    .sub-item:hover { color: var(--garden-pesto); }
+
+    .flyout-menu {
+        position: absolute;
+        left: 220px; 
+        top: -10px;
+        background: rgba(40, 5, 2, 0.95);
+        border: 1px solid var(--olive-branch);
+        border-radius: 12px;
+        padding: 10px;
+        width: 150px;
+        display: none;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+        z-index: 1001;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .flyout-menu::before {
+        content: '';
+        position: absolute;
+        left: -7px;
+        top: 18px;
+        border-width: 6px 7px 6px 0;
+        border-style: solid;
+        border-color: transparent var(--olive-branch) transparent transparent;
+    }
+
+    .sub-item:hover .flyout-menu { 
+        display: block; 
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .flyout-item {
+        padding: 8px;
+        font-size: 13px;
+        color: var(--salted-cream);
+        border-bottom: 1px solid var(--glass);
+    }
+
+    .flyout-item:last-child { border-bottom: none; }
+    .flyout-item:hover { color: var(--olive-branch); background: var(--glass); border-radius: 6px; }
+
+    /* speacial r */
+    .ozel-secki {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: rgba(91, 10, 5, 1);
+        border-top: 1px solid var(--pickled-plum);
+        color: var(--olive-branch);
+        font-size: 14px;
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .ozel-secki:hover {
+        background: var(--glass);
+        color: var(--salted-cream);
+    }
+
+    .main-container {
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+    }
+
+    .header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+    }
+
+    .menu-trigger {
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--olive-branch);
+        background: var(--glass);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+    }
+
+    .search-box input {
+        width: 400px;
+        background: rgba(238, 242, 235, 0.3);
+        border: 1px solid var(--pickled-plum);
+        padding: 12px 20px;
+        border-radius: 30px;
+        color: white;
+        outline: none;
+        text-align: center;
+        font-weight: 300; /* Daha ince bir görünüm için */
+    }
+
+    .search-box input::placeholder {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .profile-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid var(--sun-dried-red);
+        background: url('https://api.dicebear.com/7.x/avataaars/svg?seed=Felix') center/cover;
+    }
+
+    .content-grid {
+        position: relative;
+        width: 100%;
+        max-width: 1100px;
+        height: 70vh;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1000px;
+    }
+
+    .hero-card {
+        width: 400px;
+        height: 400px;
+        border-radius: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 50px;
+        border: 1px solid rgba(238, 242, 235, 0.2);
+        box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        transition: transform 0.2s ease-out;
+        will-change: transform;
+        z-index: 5;
+        position: relative;
+        overflow: hidden; 
+    }
+
+    .hero-card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('main.jpg'); 
+        background-size: cover;
+        background-position: center;
+        z-index: -2; 
+    }
+
+    .hero-card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+        z-index: -1;
+    }
+
+    /* Hero Başlığı Playfair Display Yapıldı */
+    .hero-card h3 { 
+        font-family: 'Playfair Display', serif; 
+        font-size: 32px; 
+        font-weight: 700;
+        color: var(--salted-cream); 
+    }
+
+    .side-item {
+        position: absolute;
+        background: var(--glass);
+        padding: 12px 24px;
+        border-radius: 15px;
+        border: 1px solid rgba(238, 242, 235, 0.1);
+        backdrop-filter: blur(10px);
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--salted-cream);
+        z-index: 6; 
+        transition: transform 0.2s ease-out;
+        will-change: transform;
+    }
+
+    .pos-1 { top: 2%; left: 13%; }
+    .pos-2 { top: 30%; left: -2%; }
+    .pos-3 { bottom: 25%; left: 6%; }
+    .pos-4 { top: 5%; right: 15%; }
+    .pos-5 { top: 35%; right: 0%; }
+    .pos-6 { bottom: 20%; right: 5%; }
