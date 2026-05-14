@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/girisKayit.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="./css/assets/fare.jpeg">
+    <title>Evdeki Restoranım</title>
+</head>
+<body>
+    <a href="index.html" style="position:fixed;top:20px;left:20px;z-index:1000;font-size:20px;background:rgba(255,255,255,0.08);width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:12px;text-decoration:none;border:1px solid rgba(255,255,255,0.12);transition:background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'" aria-label="Ana Sayfa">🏠</a>
+    <div class="container" id="container">
+
+        <div class="form-container sign-up">
+            <form id="signUpForm">
+                <h1>Hesap Oluştur</h1>
+                <span>E-posta ile kayıt olun</span>
+                
+                <input type="text" id="regName" placeholder="Ad Soyad" required>
+                <p id="nameError" style="color: #b70d01; font-size: 11px; display: none; margin: -5px 0 5px 0; text-align: left; width: 100%;">* En az 3 karakterden oluşmalı.</p>
+                
+                <input type="email" id="regEmail" placeholder="E-posta" required>
+                
+                <div class="password-input-wrapper" style="width: 100%; position: relative;">
+                    <input type="password" id="regPassword" placeholder="Şifre" required style="width: 100%;">
+                    <i class='bx bx-hide' id="toggleRegPasswordIcon" style="position: absolute; right: 10px; top: 35%; cursor: pointer; color: #555;"></i>
+                </div>
+                <p id="passError" style="color: #b70d01; font-size: 11px; display: none; margin: 5px 0; text-align: left; width: 100%;">* En az 6 karakter, 1 büyük harf ve 1 sayı içermeli.</p>
+                
+                <button type="button" onclick="signUpUser()">Kayıt Ol</button>
+                <p class="mobile-switch">Zaten hesabınız var mı? <a onclick="document.getElementById('container').classList.remove('active')">Giriş Yap</a></p>
+            </form>
+        </div>
+
+        <div class="form-container sign-in">
+            <form id="signInForm">
+                <h1>Giriş Yap</h1>
+                <span>E-posta ve şifrenizle giriş yapın</span>
+                <input type="email" id="loginEmail" placeholder="E-posta" required>
+                
+                <div class="password-input-wrapper" style="width: 100%; position: relative;">
+                    <input type="password" id="loginPassword" placeholder="Şifre" required style="width: 100%;">
+                    <i class='bx bx-hide' id="toggleLoginPasswordIcon" style="position: absolute; right: 10px; top: 35%; cursor: pointer; color: #555;"></i>
+                </div>
+
+                <p id="errorMsg" style="color: #b70d01; font-size: 12px; margin-top: 5px; display: none;">E-posta veya şifre hatalı!</p>
+                
+                <a href="#" id="forgotPassword">Şifremi Unuttum</a>
+                <button type="button" onclick="signInUser()">Giriş Yap</button>
+                <p class="mobile-switch">Hesabınız yok mu? <a onclick="document.getElementById('container').classList.add('active')">Kayıt Ol</a></p>
+            </form>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Hoş Geldiniz!</h1>
+                    <p>Zaten bir hesabınız var mı?</p>
+                    <button class="hidden" id="login">Giriş Yap</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Evdeki Restoranım</h1>
+                    <p>Güvenle pişirin, afiyetle yiyin.</p>
+                    <p>Hemen kayıt olun ve eşsiz tariflerin tadını çıkarın.</p>
+                    <button class="hidden" id="register">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="./js/girisKayit.js"></script>
+</body>
+</html>

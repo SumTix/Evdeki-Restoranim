@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evdeki Restoranım</title>
+    <title>Gündelik Yiyecek - Evdeki Restoranım</title>
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" type="image/png" href="./css/assets/fare.jpeg">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="icon" type="image/png" href="../../css/assets/fare.jpeg">
 </head>
 <body>
-
-    <!--SOL SİDEBAR-->
     <div class="sidebar" id="sidebar">
         <h2>Evdeki Restoranım</h2>
-
         <div class="category-group">
             <div class="main-cat" onclick="toggleCat(this)">Gündelik <span>▾</span></div>
             <div class="sub-menu">
@@ -22,7 +19,6 @@
                 <a class="sub-item" href="/tatlılar/gündelik/">Tatlı</a>
             </div>
         </div>
-
         <div class="category-group">
             <div class="main-cat" onclick="toggleCat(this)">Pratik Tarifler <span>▾</span></div>
             <div class="sub-menu">
@@ -31,7 +27,6 @@
                 <a class="sub-item" href="/tatlılar/pratik/">Tatlı</a>
             </div>
         </div>
-
         <div class="category-group">
             <div class="main-cat" onclick="toggleCat(this)">Sporcu Beslenmesi <span>▾</span></div>
             <div class="sub-menu">
@@ -40,7 +35,6 @@
                 <a class="sub-item" href="/tatlılar/sporcu/">Tatlı (Fit)</a>
             </div>
         </div>
-
         <div class="category-group">
             <div class="main-cat" onclick="toggleCat(this)">Bebek Öğünleri <span>▾</span></div>
             <div class="sub-menu">
@@ -50,7 +44,6 @@
         </div>
         <a href="/malzeme-ara.html" class="sidebar-ma-link">🔍 Malzeme ile Ara</a>
     </div>
-
     <!--SAĞ SİDEBAR-->
     <div class="profile-sidebar" id="profileSidebar">
         <div class="ps-header">
@@ -66,40 +59,31 @@
         </a>
         <button class="ps-logout" id="psLogoutBtn">⎋ &nbsp;Çıkış Yap</button>
     </div>
-
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
     <div class="main-container">
         <header class="header">
             <div class="menu-trigger" onclick="toggleSidebar(event)">☰</div>
             <a class="home-btn" href="/" aria-label="Ana Sayfa">🏠</a>
-
             <div class="search-box">
                 <input type="text" id="recipeSearchInput" placeholder="Aklınızdaki lezzetleri arayın...">
             </div>
-
             <div class="header-right">
                 <div id="loginBtnWrapper">
-                    <a href="girisKayit.html" class="login-btn">Giriş / Kayıt</a>
+                    <a href="../../girisKayit.html" class="login-btn">Giriş / Kayıt</a>
                 </div>
                 <div class="profile-icon" id="profileIconBtn" onclick="toggleProfileSidebar(event)"></div>
             </div>
         </header>
-
-        <div class="content-grid">
-            <div class="hero-card" id="heroCard">
-                <div class="hero-card-bg"></div>
-                <div class="hero-card-overlay"></div>
-                <p style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--olive-branch);margin-bottom:10px;position:relative;z-index:1;">Şefin Önerisi</p>
-                <h3 id="main-dish-name" style="position:relative;z-index:1;">Dana Eti Kebap</h3>
-            </div>
-            <div id="floating-items"></div>
-        </div>
+        <div class="recipe-grid-section" id="recipeGridSection"></div>
     </div>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
-<script src="./js/script.js"></script>
-<script src="./js/recipe-cards.js"></script>
+    <script>
+        var CATEGORY_CONFIG = {
+            kategoriId: 'gundelik',
+            altKategoriAd: 'Yiyecek',
+            baslik: 'Gündelik Yiyecek'
+        };
+    </script>
+    <script src="../../js/script.js"></script>
+    <script src="../../js/category-recipes.js"></script>
 </body>
 </html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mutfakta Panik</title>
+    <link rel="icon" type="image/png" href="./css/assets/fare.jpeg">
+
+    
+    <style>
+        :root {
+            --sun-dried-red: #D93B30;
+            --garden-pesto: #5B913B;
+            --salted-cream: #F4F7F0;
+            --olive-branch: #A3AB30;
+            --math-rage: #3D0703; 
+            --gold-leaf: #D4AF37;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center,var(--sun-dried-red), #1a0301 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Geri Dön Butonu - Minimalist & Sol Üst */
+        .back-nav {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 2000;
+        }
+
+        .back-nav a {
+            color: var(--salted-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: block;
+        }
+
+        .back-nav a:hover {
+            background: var(--gold-leaf);
+            color: var(--math-rage);
+            border-color: var(--gold-leaf);
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            max-height: 850px;
+            background: var(--math-rage);
+            border: 2px solid var(--gold-leaf);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 20px; /* Daha yumuşak köşeler */
+        }
+
+        .header {
+            padding: 25px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(61, 7, 3, 0.9), rgba(61, 7, 3, 0.7));
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+            z-index: 100;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--gold-leaf);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .score-board {
+            color: var(--salted-cream);
+            font-size: 1.1rem;
+            margin-top: 8px;
+            opacity: 0.9;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #game-area {
+            flex-grow: 1;
+            position: relative;
+            background: 
+                linear-gradient(to bottom, rgba(61, 7, 3, 0.4), rgba(61, 7, 3, 0.7)), 
+                url('./css/assets/background.jpg') center/cover;
+            overflow: hidden;
+        }
+
+        #game-area::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        #player {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: url('./css/assets/gameFare.png') no-repeat center/contain;
+            z-index: 50;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        .platform {
+            position: absolute;
+            width: 90px;
+            height: 35px;
+            background: url('./css/assets/tabak.png') no-repeat center/contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+        }
+
+        .item {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            z-index: 40;
+        }
+
+        .item.brownie {
+            filter: drop-shadow(0 0 15px var(--gold-leaf));
+            animation: float 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-10px) scale(1.1); }
+        }
+
+        #game-over {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 3, 1, 0.92);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 40px;
+            backdrop-filter: blur(8px);
+        }
+
+        #game-over h2 { 
+            font-size: 2.8rem; 
+            color: var(--sun-dried-red); 
+            margin: 0; 
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        #game-over p { color: var(--salted-cream); margin-top: 15px; opacity: 0.8; }
+
+        #game-over button {
+            background: var(--garden-pesto);
+            color: var(--salted-cream);
+            padding: 16px 45px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 0 #3d6128;
+            margin-top: 30px;
+            transition: all 0.2s;
+        }
+
+        #game-over button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #3d6128;
+        }
+
+        /* ── RESPONSIVE ──────────────────────────── */
+        @media (max-width: 480px) {
+            .back-nav {
+                top: 14px;
+                left: 14px;
+            }
+
+            .back-nav a {
+                font-size: 0.75rem;
+                padding: 9px 16px;
+                letter-spacing: 0.5px;
+            }
+
+            .game-wrapper {
+                max-width: 100%;
+                max-height: 100dvh;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .header {
+                padding: 18px 16px;
+            }
+
+            .header h1 {
+                font-size: 1.1rem;
+                letter-spacing: 3px;
+            }
+
+            .score-board {
+                font-size: 0.95rem;
+            }
+
+            #player {
+                width: 55px;
+                height: 55px;
+            }
+
+            .platform {
+                width: 75px;
+                height: 28px;
+            }
+
+            .item {
+                width: 42px;
+                height: 42px;
+            }
+
+            #game-over h2 {
+                font-size: 2.2rem;
+            }
+
+            #game-over button {
+                padding: 14px 36px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .header h1 {
+                font-size: 0.95rem;
+                letter-spacing: 2px;
+            }
+
+            #game-over h2 {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;"><span style="font-size:16px;">🏠</span> ANA SAYFA</a>
+    </div>
+
+    <div class="game-wrapper">
+        <div class="header">
+            <h1>Mutfakta Panik</h1>
+            <div class="score-board">PUAN <span id="score" style="color: var(--gold-leaf)">0</span></div>
+        </div>
+
+        <div id="game-area">
+            <div id="player"></div>
+            <div id="game-over">
+                <h2>EYVAH ŞEF!</h2>
+                <p>Tabaklar devrildi, mutfak dağıldı.</p>
+                <div style="font-size: 3rem; color: var(--gold-leaf); margin: 20px 0; font-weight: 900;">
+                    <span id="final-score">0</span>
+                </div>
+                <button onclick="resetGame()">TEKRAR DENE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('game-area');
+        const player = document.getElementById('player');
+        const scoreElement = document.getElementById('score');
+        const finalScoreElement = document.getElementById('final-score');
+        const gameOverScreen = document.getElementById('game-over');
+
+        let areaWidth = gameArea.offsetWidth;
+        let areaHeight = gameArea.offsetHeight;
+        let playerX = areaWidth / 2 - 35;
+        let playerY = 180; 
+        let velocityY = 0;
+        let gravity = 0.4;
+        let jumpStrength = -12;
+        let boostStrength = -25; 
+        let score = 0;
+        let isGameOver = false;
+        let platforms = [];
+        let items = []; 
+        let animationId;
+
+        class FallingObject {
+            constructor() {
+                const types = [
+                    { name: 'cilek', img: 'çilek.png', effect: 'boost' },
+                    { name: 'peynir', img: 'peynir.png', effect: 'boost' },
+                    { name: 'bomba', img: 'bomb.png', effect: 'danger' },
+                    { name: 'brownie', img: 'brownie.png', effect: 'superScore' }
+                ];
+                let rand = Math.random();
+                let type = rand > 0.9 ? types[3] : rand > 0.65 ? types[2] : rand > 0.32 ? types[1] : types[0];
+                this.type = type.effect;
+                this.w = 50; this.h = 50;
+                this.x = Math.random() * (areaWidth - this.w);
+                this.y = areaHeight + 50; 
+                this.visual = document.createElement('div');
+                this.visual.className = `item ${type.name}`;
+                this.visual.style.backgroundImage = `url('./css/assets/${type.img}')`;
+                gameArea.appendChild(this.visual);
+            }
+            render() {
+                this.visual.style.left = this.x + 'px';
+                this.visual.style.top = (areaHeight - this.y) + 'px';
+            }
+        }
+
+        function initPlatforms() {
+            platforms.push({ w: 90, h: 25, x: playerX - 10, y: playerY - 30, visual: createVisual('platform') });
+            for (let i = 1; i < 7; i++) {
+                platforms.push({ w: 90, h: 25, x: Math.random() * (areaWidth - 90), y: 100 + i * (areaHeight / 7), visual: createVisual('platform') });
+            }
+        }
+
+        function createVisual(className) {
+            const div = document.createElement('div');
+            div.className = className;
+            gameArea.appendChild(div);
+            return div;
+        }
+
+        function update() {
+            if (isGameOver) return;
+            velocityY += gravity;
+            playerY -= velocityY;
+
+            if (playerY > areaHeight / 2) {
+                let diff = playerY - areaHeight / 2;
+                playerY = areaHeight / 2;
+                platforms.forEach(p => {
+                    p.y -= diff;
+                    if (p.y < 0) {
+                        p.y = areaHeight; p.x = Math.random() * (areaWidth - p.w);
+                        score++; scoreElement.innerText = score;
+                        if (score % 4 === 0) items.push(new FallingObject());
+                    }
+                });
+                items.forEach(item => item.y -= diff);
+            }
+
+            if (velocityY > 0) {
+                platforms.forEach(p => {
+                    if (playerX + 55 > p.x && playerX + 15 < p.x + p.w && playerY > p.y && playerY < p.y + p.h) velocityY = jumpStrength;
+                });
+            }
+
+            items.forEach((item, index) => {
+                item.render();
+                if (playerX + 60 > item.x && playerX < item.x + item.w && playerY + 60 > item.y && playerY < item.y + item.h) {
+                    if (item.type === 'boost') velocityY = boostStrength;
+                    else if (item.type === 'danger') velocityY = 18;
+                    else if (item.type === 'superScore') { score += 15; scoreElement.innerText = score; velocityY = jumpStrength; }
+                    item.visual.remove(); items.splice(index, 1);
+                }
+                if (item.y < -100) { item.visual.remove(); items.splice(index, 1); }
+            });
+
+            if (playerY < -50) endGame();
+            player.style.transform = `translate(${playerX}px, ${areaHeight - playerY - 70}px)`;
+            platforms.forEach(p => { p.visual.style.left = p.x + 'px'; p.visual.style.top = (areaHeight - p.y) + 'px'; });
+            animationId = requestAnimationFrame(update);
+        }
+
+        function handleMove(e) {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const rect = gameArea.getBoundingClientRect();
+            playerX = clientX - rect.left - 35;
+            if (playerX < 0) playerX = 0;
+            if (playerX > areaWidth - 70) playerX = areaWidth - 70;
+        }
+
+        gameArea.addEventListener('mousemove', handleMove);
+        gameArea.addEventListener('touchmove', (e) => { e.preventDefault(); handleMove(e); }, { passive: false });
+
+        function endGame() {
+            isGameOver = true;
+            cancelAnimationFrame(animationId);
+            gameOverScreen.style.display = 'flex';
+            finalScoreElement.innerText = score;
+        }
+
+        function resetGame() { location.reload(); }
+
+        initPlatforms();
+        update();
+    </script>
+</body>
+</html>
