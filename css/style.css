@@ -139,7 +139,6 @@
     .flyout-item:last-child { border-bottom: none; }
     .flyout-item:hover { color: var(--olive-branch); background: var(--glass); border-radius: 6px; }
 
-    /* speacial r */
     .ozel-secki {
         position: absolute;
         bottom: 0;
@@ -228,7 +227,6 @@
     background: var(--glass);
 }
 
-/* orta: search */
 .search-box {
     color: #eef2ebe6;
     flex: 1;
@@ -339,20 +337,18 @@
         color: var(--salted-cream);
         z-index: 6; 
         box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        animation: float 6s ease-in-out infinite; /* Genel süzülme */
+        animation: float 6s ease-in-out infinite;
     }
 
-    /* SOL TARAF*/
     .pos-1 { top: 1%; left: 10%; animation-delay: 0s; }
     .pos-2 { top: 25%; left: -5%; animation-delay: 1.5s; }
     .pos-3 { bottom: 35%; left: 8%; animation-delay: 0.8s; }
-    .pos-8 { bottom: 5%; left: 0%; animation-delay: 2.2s; } /* Yeni Sol Alt */
+    .pos-8 { bottom: 5%; left: 0%; animation-delay: 2.2s; }
 
-    /* SAĞ TARAF*/
     .pos-4 { top: 1%; right: 12%; animation-delay: 0.5s; }
     .pos-5 { top: 25%; right: -2%; animation-delay: 1.8s; }
     .pos-6 { bottom: 35%; right: 8%; animation-delay: 1.1s; }
-    .pos-7 { bottom: 8%; right: 0%; animation-delay: 2.5s; } /* Yeni Sağ Alt */
+    .pos-7 { bottom: 8%; right: 0%; animation-delay: 2.5s; }
 
     .side-item:hover {
         animation-play-state: paused;
@@ -408,7 +404,6 @@
 .login-btn:active{
     transform: scale(0.97);
 }
- /* ── PROFIL SIDEBAR ─────────────────────────────── */
         .profile-sidebar {
             position: fixed;
             right: -320px;
@@ -427,7 +422,6 @@
         }
         .profile-sidebar.open { right: 0; }
 
-        /* Profil baş kısmı */
         .ps-header {
             display: flex;
             flex-direction: column;
@@ -459,7 +453,6 @@
             margin-top: -6px;
         }
 
-        /* Kart bileşeni */
         .ps-card {
             margin-top: 20px;
             background: rgba(255,255,255,0.06);
@@ -499,7 +492,6 @@
             margin-bottom: 8px;
         }
 
-        /* Çıkış butonu — en alta yapışık */
         .ps-logout {
             margin-top: auto;
             width: 100%;
@@ -520,7 +512,6 @@
         }
         .ps-logout:hover { color: var(--sun-dried-red); background: rgba(217,59,48,0.08); }
 
-        /* ── HEADER AUTH DURUMLARI ───────────────────────── */
         #loginBtnWrapper { transition: opacity 0.3s; }
         #loginBtnWrapper.hidden { opacity: 0; pointer-events: none; width: 0; overflow: hidden; }
 
@@ -533,7 +524,6 @@
             box-shadow: 0 0 0 3px var(--olive-branch);
         }
          
-        /* Overlay (arka plan kapanma) */
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -543,12 +533,8 @@
         }
         .sidebar-overlay.active { display: block; }
 
-        /* Playfair Display import (profile sidebar başlıkları için) */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
-/* ── RESPONSIVE BREAKPOINTS ─────────────────────────── */
-
-/* Tablet: 768px - 1024px */
 @media (max-width: 1024px) {
     .main-container {
         padding: 30px 24px;
@@ -573,7 +559,6 @@
         margin-top: 36px;
     }
 
-    /* Floating items - tablet için küçült */
     .side-item {
         padding: 10px 20px;
         font-size: 13px;
@@ -589,7 +574,6 @@
     .pos-8 { bottom: 5%; left: 0%; }
 }
 
-/* Mobil: max 768px */
 @media (max-width: 768px) {
     body {
         flex-direction: column;
@@ -604,7 +588,6 @@
         align-items: stretch;
     }
 
-    /* Header */
     .header {
         gap: 10px;
         flex-wrap: nowrap;
@@ -643,7 +626,6 @@
         height: 40px;
     }
 
-    /* Content Grid - mobilde dikey yığılma */
     .content-grid {
         height: auto;
         margin-top: 24px;
@@ -665,7 +647,6 @@
         font-size: 22px;
     }
 
-    /* Floating items - mobilde sabit grid */
     #floating-items {
         position: relative;
         width: 100%;
@@ -686,7 +667,6 @@
         text-align: center;
     }
 
-    /* Sidebar */
     .sidebar {
         width: 100%;
         max-width: 300px;
@@ -699,7 +679,6 @@
         padding: 30px 16px 0 16px;
     }
 
-    /* Flyout menu - mobilde aşağıya aç */
     .flyout-menu {
         left: 0;
         top: 100%;
@@ -711,7 +690,19 @@
     }
 }
 
-/* Küçük mobil: max 480px */
+@media (max-width: 640px) {
+    .recipe-grid-section { padding: 28px 16px 56px; }
+    .rgs-search { width: 100%; }
+    .ma-section { padding: 28px 16px 56px; }
+    .rm-layout { flex-direction: column; }
+    .rm-ingredients-panel { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); max-height: 140px; padding: 14px 16px; }
+    .rm-ingredients-list { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .rm-ingredient { background: rgba(255,255,255,.05); border-bottom: none; padding: 4px 9px; border-radius: 20px; flex-direction: column; gap: 1px; }
+    .rm-ing-name { font-size: 11px; }
+    .rm-ing-amount { font-size: 10px; }
+    .rm-steps-panel { padding: 18px 16px 18px; }
+}
+
 @media (max-width: 480px) {
     .main-container {
         padding: 12px;
@@ -740,5 +731,22 @@
     .side-item {
         font-size: 11px;
         padding: 8px 10px;
+    }
+    
+    .rc-photo { height: 120px; }
+}
+
+@media (hover: none) {
+    .recipe-card:hover,
+    .rc-open-btn:hover,
+    .login-btn:hover,
+    .ps-card:hover,
+    .side-item:hover,
+    .profile-icon:hover,
+    .rc-fav:hover,
+    .back-nav a:hover,
+    .ozel-secki:hover,
+    .home-btn:hover {
+        transform: none !important;
     }
 }

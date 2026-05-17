@@ -1,5 +1,5 @@
-const PHOTO_EXT = {"menemen":"webp","kuymak":"webp","sucuklu-yumurta":"webp","pankek":"jpg","krep":"jpg","karniyarik":"webp","kuru-fasulye":"png","pirinc-pilavi":"jpg","mercimek-corbasi":"jpg","firin-tavuk":"avif","puf-pisi":"jpg","cilbir":"jpg","kasarli-gozleme":"webp","gevrek-simit":"jpg","boyoz":"jpg","iskender-kebap":"jpg","mantar-sote":"webp","icli-kofte":"jpg","zeytinyagli-fasulye":"jpg","manti":"jpg","ali-nazik":"jpg","et-sote":"jpg","sigara-boregi":"jpg","patatesli-omlet":"webp","zeytinli-acma":"avif","peynirli-dereotlu-pogaca":"webp","kasarli-menemen":"jpg","etli-yaprak-sarma":"jpg","firin-kofte-patates":"jpg","bezelye-yemegi":"jpg","tavuk-sote":"png","firin-makarna":"webp","kis-turlusu":"jpg","bamya-yemegi":"jpg","patlican-musakka":"jpg","sehriye-corbasi":"webp","yayla-corbasi":"jpg","soganli-menemen":"jpg","bufe-tostu":"avif","tavada-su-boregi":"jpg","tavuklu-pilav":"jpg","firinda-cipura":"jpg","zeytinyagli-kereviz":"jpg","nohut-yemegi":"jpg","meyhaneli-bulgur":"webp","tas-kebabi":"jpg","firin-kanat":"jpg","bol-kopuklu-ayran":"webp","turk-kahvesi":"webp","ev-yapimi-limonata":"jpg","reyhan-serbeti":"jpg","demleme-cay":"jpg","salgam-suyu":"webp","gercek-sahlep":"webp","visne-kompostosu":"jpg","nane-limon":"jpg","ihlamur-cayi":"jpg","elma-cayi":"jpg","taze-portakal-suyu":"webp","karadut-surubu":"jpg","kayisi-kompostosu":"jpg","ev-yapimi-kefir":"jpg","seftalili-soguk-cay":"jpg","kusburnu-cayi":"webp","sutlac":"jpg","mozaik-pasta":"jpg","irmik-helvasi":"jpg","revani":"jpg","firin-sutlac":"jpg","sekerpare":"jpg","kazandibi":"jpg","ev-baklavasi":"jpg","ekmek-kadayifi":"jpg","gullac":"jpg","gercek-supangle":"jpg","profiterol":"webp","incir-uyutmasi":"jpg","cevizli-lokum":"jpg","sutlu-irmik-tatlisi":"jpg","kadayif-dolmasi":"webp","kabak-tatlisi":"jpg","dondurmali-irmik":"jpg","ayva-tatlisi":"jpg","trilece":"jpg","keskul":"jpg","salcali-sosis":"jpg","kremali-makarna":"jpg","tavada-tavuk":"jpg","ton-balikli-salata":"jpg","lavas-pizza":"jpg","yumurtali-ekmek":"jpg","yulaf-lapasi":"jpg","kasarli-tost":"jpg","granola-kasesi":"jpg","pratik-omlet":"jpg","fincanda-yumurta":"jpg","avokadolu-tost":"jpg","pratik-krep":"jpg","milfoy-borek":"jpg","tavada-pratik-manti":"jpg","sosisli-makarna":"jpg","sebzeli-noodle":"jpg","tavuk-durum":"jpg","cop-sis":"jpg","peynirli-makarna":"jpg","biberli-lor-kavurmasi":"jpg","avokadolu-peynirli-ekmek":"jpg","tavada-peynirli-yumurta":"jpg","korili-tavuklu-makarna":"jpg","ton-balikli-sandvic":"jpg","salcali-milfoy":"jpg","tavada-lavas-tost":"jpg","firin-patates-cipsi":"jpg","yufkadan-gozleme":"webp","citir-tavuk-parcalari":"jpg","ev-yapimi-granola-bar":"jpg","kasarli-krep-tost":"jpg","bardakta-yulaf":"jpg","fistik-ezmeli-muzlu-tost":"jpg","yumurta-salatasi":"jpg","ton-balikli-lavas":"jpg","sucuklu-makarna":"jpg","tavada-tavuk-sis":"jpg","yogurtlu-semizotu":"jpg","milfoy-sosis-rulo":"jpg","soguk-kahve":"jpg","cilekli-milkshake":"jpg","detoks-suyu":"jpg","naneli-ayran":"jpg","meyveli-soda":"jpg","hizli-limonata":"jpg","muzlu-sut":"jpg","cilekli-kefir":"jpg","soguk-yesil-cay":"jpg","karpuz-frozen":"jpg","kavun-subye":"jpg","nescafeli-frappe":"jpg","pratik-atom":"jpg","mikrodalga-kek":"jpg","biskuvili-pasta":"jpg","bardak-tiramisu":"jpg","muzlu-rulo":"jpg","supangle":"jpg","biskuvili-puding":"jpg","mikrodalga-brownie":"jpg","kakaolu-sutlu-tatli":"jpg","tavada-sufle":"jpg","muzlu-rulo-krep":"jpg","cilekli-magnolia":"jpg","irmik-toplari":"jpg","izgara-somon":"jpg","tavuklu-kinoa":"jpg","lorlu-omlet":"jpg","fistik-ezmeli-bar":"jpg","haslanmis-tavuk":"webp","lorlu-salata":"webp","ton-balikli-makarna":"jpg","hindi-sote":"jpg","karabugday-pilavi":"jpg","izgara-tavuk-sis":"jpg","kinoali-avokado-salatasi":"jpg","yumurta-aki-pankeki":"jpg","firin-tatli-patates":"jpg","hindi-fume-sandvic":"jpg","kinoa-koftesi":"jpg","izgara-levrek":"jpg","firin-tavuk-sinitzel":"jpg","nohutlu-brokoli-salatasi":"jpg","protein-shake":"jpg","yesil-smoothie":"jpg","pancar-suyu":"jpg","orman-meyveli-shake":"jpg","zencefil-shot":"jpg","kakaolu-protein-sut":"jpg","bcaa-karpuz":"jpg","spirulina-smoothie":"jpg","glutamin-elma":"png","sekersiz-puding":"jpg","fit-kek":"jpg","chia-tatlisi":"jpg","ev-yapimi-protein-bar":"jpg","fistik-ezmeli-kurabiye":"jpg","yulafli-enerji-topu":"jpg","proteinli-muzlu-ekmek":"jpg","yulaf-puding":"jpg","muz-dondurmasi":"jpg","havuc-puresi":"jpg","kabak-puresi":"jpg","patates-puresi":"jpg","kabakli-pirinc-corbasi":"jpg","brokoli-puresi":"jpg","sebzeli-tarhana":"jpg","balkabagi-corbasi-bebek":"jpg","kereviz-puresi-bebek":"jpg","bebek-koftesi":"jpg","seftalili-yogurt":"jpg","elmali-muhallebi":"jpg","irmikli-armut":"jpg","muzlu-yulaf-bebek":"jpg","hurmali-bebek-biskuvisi":"jpg"};
-const savedIngredients = JSON.parse(localStorage.getItem("ingredients"));
+var PHOTO_EXT = {"menemen":"webp","kuymak":"webp","sucuklu-yumurta":"webp","pankek":"jpg","krep":"jpg","karniyarik":"webp","kuru-fasulye":"png","pirinc-pilavi":"jpg","mercimek-corbasi":"jpg","firin-tavuk":"avif","puf-pisi":"jpg","cilbir":"jpg","kasarli-gozleme":"webp","gevrek-simit":"jpg","boyoz":"jpg","iskender-kebap":"jpg","mantar-sote":"webp","icli-kofte":"jpg","zeytinyagli-fasulye":"jpg","manti":"jpg","ali-nazik":"jpg","et-sote":"jpg","sigara-boregi":"jpg","patatesli-omlet":"webp","zeytinli-acma":"avif","peynirli-dereotlu-pogaca":"webp","kasarli-menemen":"jpg","etli-yaprak-sarma":"jpg","firin-kofte-patates":"jpg","bezelye-yemegi":"jpg","tavuk-sote":"png","firin-makarna":"webp","kis-turlusu":"jpg","bamya-yemegi":"jpg","patlican-musakka":"jpg","sehriye-corbasi":"webp","yayla-corbasi":"jpg","soganli-menemen":"jpg","bufe-tostu":"avif","tavada-su-boregi":"jpg","tavuklu-pilav":"jpg","firinda-cipura":"jpg","zeytinyagli-kereviz":"jpg","nohut-yemegi":"jpg","meyhaneli-bulgur":"webp","tas-kebabi":"jpg","firin-kanat":"jpg","bol-kopuklu-ayran":"webp","turk-kahvesi":"webp","ev-yapimi-limonata":"jpg","reyhan-serbeti":"jpg","demleme-cay":"jpg","salgam-suyu":"webp","gercek-sahlep":"webp","visne-kompostosu":"jpg","nane-limon":"jpg","ihlamur-cayi":"jpg","elma-cayi":"jpg","taze-portakal-suyu":"webp","karadut-surubu":"jpg","kayisi-kompostosu":"jpg","ev-yapimi-kefir":"jpg","seftalili-soguk-cay":"jpg","kusburnu-cayi":"webp","sutlac":"jpg","mozaik-pasta":"jpg","irmik-helvasi":"jpg","revani":"jpg","firin-sutlac":"jpg","sekerpare":"jpg","kazandibi":"jpg","ev-baklavasi":"jpg","ekmek-kadayifi":"jpg","gullac":"jpg","gercek-supangle":"jpg","profiterol":"webp","incir-uyutmasi":"jpg","cevizli-lokum":"jpg","sutlu-irmik-tatlisi":"jpg","kadayif-dolmasi":"webp","kabak-tatlisi":"jpg","dondurmali-irmik":"jpg","ayva-tatlisi":"jpg","trilece":"jpg","keskul":"jpg","salcali-sosis":"jpg","kremali-makarna":"jpg","tavada-tavuk":"jpg","ton-balikli-salata":"jpg","lavas-pizza":"jpg","yumurtali-ekmek":"jpg","yulaf-lapasi":"jpg","kasarli-tost":"jpg","granola-kasesi":"jpg","pratik-omlet":"jpg","fincanda-yumurta":"jpg","avokadolu-tost":"jpg","pratik-krep":"jpg","milfoy-borek":"jpg","tavada-pratik-manti":"jpg","sosisli-makarna":"jpg","sebzeli-noodle":"jpg","tavuk-durum":"jpg","cop-sis":"jpg","peynirli-makarna":"jpg","biberli-lor-kavurmasi":"jpg","avokadolu-peynirli-ekmek":"jpg","tavada-peynirli-yumurta":"jpg","korili-tavuklu-makarna":"jpg","ton-balikli-sandvic":"jpg","salcali-milfoy":"jpg","tavada-lavas-tost":"jpg","firin-patates-cipsi":"jpg","yufkadan-gozleme":"webp","citir-tavuk-parcalari":"jpg","ev-yapimi-granola-bar":"jpg","kasarli-krep-tost":"jpg","bardakta-yulaf":"jpg","fistik-ezmeli-muzlu-tost":"jpg","yumurta-salatasi":"jpg","ton-balikli-lavas":"jpg","sucuklu-makarna":"jpg","tavada-tavuk-sis":"jpg","yogurtlu-semizotu":"jpg","milfoy-sosis-rulo":"jpg","soguk-kahve":"jpg","cilekli-milkshake":"jpg","detoks-suyu":"jpg","naneli-ayran":"jpg","meyveli-soda":"jpg","hizli-limonata":"jpg","muzlu-sut":"jpg","cilekli-kefir":"jpg","soguk-yesil-cay":"jpg","karpuz-frozen":"jpg","kavun-subye":"jpg","nescafeli-frappe":"jpg","pratik-atom":"jpg","mikrodalga-kek":"jpg","biskuvili-pasta":"jpg","bardak-tiramisu":"jpg","muzlu-rulo":"jpg","supangle":"jpg","biskuvili-puding":"jpg","mikrodalga-brownie":"jpg","kakaolu-sutlu-tatli":"jpg","tavada-sufle":"jpg","muzlu-rulo-krep":"jpg","cilekli-magnolia":"jpg","irmik-toplari":"jpg","izgara-somon":"jpg","tavuklu-kinoa":"jpg","lorlu-omlet":"jpg","fistik-ezmeli-bar":"jpg","haslanmis-tavuk":"webp","lorlu-salata":"webp","ton-balikli-makarna":"jpg","hindi-sote":"jpg","karabugday-pilavi":"jpg","izgara-tavuk-sis":"jpg","kinoali-avokado-salatasi":"jpg","yumurta-aki-pankeki":"jpg","firin-tatli-patates":"jpg","hindi-fume-sandvic":"jpg","kinoa-koftesi":"jpg","izgara-levrek":"jpg","firin-tavuk-sinitzel":"jpg","nohutlu-brokoli-salatasi":"jpg","protein-shake":"jpg","yesil-smoothie":"jpg","pancar-suyu":"jpg","orman-meyveli-shake":"jpg","zencefil-shot":"jpg","kakaolu-protein-sut":"jpg","bcaa-karpuz":"jpg","spirulina-smoothie":"jpg","glutamin-elma":"png","sekersiz-puding":"jpg","fit-kek":"jpg","chia-tatlisi":"jpg","ev-yapimi-protein-bar":"jpg","fistik-ezmeli-kurabiye":"jpg","yulafli-enerji-topu":"jpg","proteinli-muzlu-ekmek":"jpg","yulaf-puding":"jpg","muz-dondurmasi":"jpg","havuc-puresi":"jpg","kabak-puresi":"jpg","patates-puresi":"jpg","kabakli-pirinc-corbasi":"jpg","brokoli-puresi":"jpg","sebzeli-tarhana":"jpg","balkabagi-corbasi-bebek":"jpg","kereviz-puresi-bebek":"jpg","bebek-koftesi":"jpg","seftalili-yogurt":"jpg","elmali-muhallebi":"jpg","irmikli-armut":"jpg","muzlu-yulaf-bebek":"jpg","hurmali-bebek-biskuvisi":"jpg"};
+var savedIngredients = JSON.parse(localStorage.getItem("ingredients"));
 console.log(savedIngredients);
 
 const sidebar         = document.getElementById('sidebar');
@@ -94,6 +94,8 @@ function renderFloatingItems(foods) {
     });
 }
 
+var heroRecipe = null;
+
 fetch('/Yemekler5.json')
     .then(r => r.json())
     .then(data => {
@@ -101,15 +103,19 @@ fetch('/Yemekler5.json')
         const picked = shuffle(all).slice(0, 8);
         renderFloatingItems(picked);
 
-        const hero     = all[Math.floor(Math.random() * all.length)];
+        heroRecipe     = all[Math.floor(Math.random() * all.length)];
         const heroName = document.getElementById('main-dish-name');
         if (heroName) {
-            heroName.textContent = (hero.emoji ? hero.emoji + '  ' : '') + hero.ad;
+            heroName.textContent = (heroRecipe.emoji ? heroRecipe.emoji + '  ' : '') + heroRecipe.ad;
         }
         const heroBg = document.querySelector('.hero-card-bg');
         if (heroBg) {
-            heroBg.style.backgroundImage = `url('./css/assets/tarifler/${hero.id}.${PHOTO_EXT[hero.id] || 'jpg'}')`;
+            heroBg.style.backgroundImage = `url('./css/assets/tarifler/${heroRecipe.id}.${PHOTO_EXT[heroRecipe.id] || 'jpg'}')`;
         }
+        heroCard.style.cursor = 'pointer';
+        heroCard.addEventListener('click', function () {
+            if (typeof openModalFull === 'function' && heroRecipe) openModalFull(heroRecipe);
+        });
     })
     .catch(() => {
         const fallback = [
@@ -156,9 +162,24 @@ if (typeof firebase !== 'undefined') {
     if (typeof Favorites !== 'undefined') Favorites.init(auth);
 
     function refreshHighScore() {
-        const score = localStorage.getItem('final-score') || '0';
-        const el = document.getElementById('psHighScore');
-        if (el) el.textContent = `En Yüksek Puan: ${score}`;
+        var el = document.getElementById('psHighScore');
+        if (!el) return;
+        if (auth && auth.currentUser && typeof firebase !== 'undefined') {
+            firebase.firestore().collection('users').doc(auth.currentUser.uid).get()
+                .then(function (doc) {
+                    if (doc.exists && typeof doc.data().highScore === 'number') {
+                        el.textContent = 'En Yüksek Puan: ' + doc.data().highScore;
+                        localStorage.setItem('mutfakPanikHighScore', doc.data().highScore);
+                    } else {
+                        el.textContent = 'En Yüksek Puan: ' + (localStorage.getItem('mutfakPanikHighScore') || '0');
+                    }
+                })
+                .catch(function () {
+                    el.textContent = 'En Yüksek Puan: ' + (localStorage.getItem('mutfakPanikHighScore') || '0');
+                });
+        } else {
+            el.textContent = 'En Yüksek Puan: ' + (localStorage.getItem('mutfakPanikHighScore') || '0');
+        }
     }
 
     auth.onAuthStateChanged((user) => {

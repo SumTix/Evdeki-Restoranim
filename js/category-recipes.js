@@ -398,16 +398,7 @@
 '.rm-modal-photo.rm-modal-photo--loaded img{display:block}' +
 '.rm-modal-photo-emoji{font-size:3.2rem;line-height:1;opacity:.6;transition:opacity .25s}' +
 '.rm-modal-photo.rm-modal-photo--loaded .rm-modal-photo-emoji{opacity:0;pointer-events:none}' +
-'@media(max-width:640px){' +
-  '.recipe-grid-section{padding:28px 16px 56px}' +
-  '.rm-layout{flex-direction:column}' +
-  '.rm-ingredients-panel{width:100%;min-width:unset;border-right:none;border-bottom:1px solid rgba(255,255,255,.06);max-height:140px;padding:14px 16px}' +
-  '.rm-ingredients-list{flex-direction:row;flex-wrap:wrap;gap:6px}' +
-  '.rm-ingredient{background:rgba(255,255,255,.05);border-bottom:none;padding:4px 9px;border-radius:20px;flex-direction:column;gap:1px}' +
-  '.rm-ing-name{font-size:11px}' +
-  '.rm-ing-amount{font-size:10px}' +
-  '.rm-steps-panel{padding:18px 16px 18px}' +
-'}';
+'';
     document.head.appendChild(s);
   }
 

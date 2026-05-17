@@ -35,7 +35,6 @@
             overflow: hidden;
         }
 
-        /* Geri Dön Butonu - Minimalist & Sol Üst */
         .back-nav {
             position: fixed;
             top: 25px;
@@ -78,7 +77,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border-radius: 20px; /* Daha yumuşak köşeler */
+            border-radius: 20px;
         }
 
         .header {
@@ -113,6 +112,7 @@
                 linear-gradient(to bottom, rgba(61, 7, 3, 0.4), rgba(61, 7, 3, 0.7)), 
                 url('./css/assets/background.jpg') center/cover;
             overflow: hidden;
+            touch-action: none;
         }
 
         #game-area::after {
@@ -125,39 +125,31 @@
 
         #player {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: url('./css/assets/gameFare.png') no-repeat center/contain;
             z-index: 50;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+            will-change: transform;
         }
 
         .platform {
             position: absolute;
-            width: 90px;
-            height: 35px;
+            width: 80px;
+            height: 25px;
             background: url('./css/assets/tabak.png') no-repeat center/contain;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+            will-change: transform;
         }
 
         .item {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 40;
-        }
-
-        .item.brownie {
-            filter: drop-shadow(0 0 15px var(--gold-leaf));
-            animation: float 1s infinite alternate ease-in-out;
-        }
-
-        @keyframes float {
-            from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-10px) scale(1.1); }
+            width: 28px;
+            height: 28px;
+            background: no-repeat center/contain;
+            z-index: 60;
+            pointer-events: none;
+            will-change: transform;
         }
 
         #game-over {
@@ -202,7 +194,30 @@
             box-shadow: 0 0 0 #3d6128;
         }
 
-        /* ── RESPONSIVE ──────────────────────────── */
+        .ghs-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            color: var(--salted-cream);
+            margin-top: 10px;
+        }
+        .ghs-value {
+            font-size: 1.6rem;
+            color: var(--gold-leaf);
+            font-weight: 900;
+        }
+
+        @media (max-width: 640px) {
+            .game-wrapper {
+                max-width: 100%;
+                max-height: 100dvh;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
         @media (max-width: 480px) {
             .back-nav {
                 top: 14px;
@@ -213,14 +228,6 @@
                 font-size: 0.75rem;
                 padding: 9px 16px;
                 letter-spacing: 0.5px;
-            }
-
-            .game-wrapper {
-                max-width: 100%;
-                max-height: 100dvh;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
             }
 
             .header {
@@ -237,18 +244,18 @@
             }
 
             #player {
-                width: 55px;
-                height: 55px;
+                width: 50px;
+                height: 50px;
             }
 
             .platform {
-                width: 75px;
-                height: 28px;
+                width: 65px;
+                height: 22px;
             }
 
             .item {
-                width: 42px;
-                height: 42px;
+                width: 24px;
+                height: 24px;
             }
 
             #game-over h2 {
@@ -283,6 +290,7 @@
         <div class="header">
             <h1>Mutfakta Panik</h1>
             <div class="score-board">PUAN <span id="score" style="color: var(--gold-leaf)">0</span></div>
+            <div class="high-score" style="color:var(--salted-cream);font-size:0.8rem;margin-top:4px;opacity:0.6;">EN YÜKSEK <span id="highScoreDisplay">0</span></div>
         </div>
 
         <div id="game-area">
@@ -293,135 +301,16 @@
                 <div style="font-size: 3rem; color: var(--gold-leaf); margin: 20px 0; font-weight: 900;">
                     <span id="final-score">0</span>
                 </div>
+                <div class="ghs-label">En Yüksek Puan</div>
+                <div class="ghs-value" id="gameOverHighScore">0</div>
                 <button onclick="resetGame()">TEKRAR DENE</button>
             </div>
         </div>
     </div>
 
-    <script>
-        const gameArea = document.getElementById('game-area');
-        const player = document.getElementById('player');
-        const scoreElement = document.getElementById('score');
-        const finalScoreElement = document.getElementById('final-score');
-        const gameOverScreen = document.getElementById('game-over');
-
-        let areaWidth = gameArea.offsetWidth;
-        let areaHeight = gameArea.offsetHeight;
-        let playerX = areaWidth / 2 - 35;
-        let playerY = 180; 
-        let velocityY = 0;
-        let gravity = 0.4;
-        let jumpStrength = -12;
-        let boostStrength = -25; 
-        let score = 0;
-        let isGameOver = false;
-        let platforms = [];
-        let items = []; 
-        let animationId;
-
-        class FallingObject {
-            constructor() {
-                const types = [
-                    { name: 'cilek', img: 'çilek.png', effect: 'boost' },
-                    { name: 'peynir', img: 'peynir.png', effect: 'boost' },
-                    { name: 'bomba', img: 'bomb.png', effect: 'danger' },
-                    { name: 'brownie', img: 'brownie.png', effect: 'superScore' }
-                ];
-                let rand = Math.random();
-                let type = rand > 0.9 ? types[3] : rand > 0.65 ? types[2] : rand > 0.32 ? types[1] : types[0];
-                this.type = type.effect;
-                this.w = 50; this.h = 50;
-                this.x = Math.random() * (areaWidth - this.w);
-                this.y = areaHeight + 50; 
-                this.visual = document.createElement('div');
-                this.visual.className = `item ${type.name}`;
-                this.visual.style.backgroundImage = `url('./css/assets/${type.img}')`;
-                gameArea.appendChild(this.visual);
-            }
-            render() {
-                this.visual.style.left = this.x + 'px';
-                this.visual.style.top = (areaHeight - this.y) + 'px';
-            }
-        }
-
-        function initPlatforms() {
-            platforms.push({ w: 90, h: 25, x: playerX - 10, y: playerY - 30, visual: createVisual('platform') });
-            for (let i = 1; i < 7; i++) {
-                platforms.push({ w: 90, h: 25, x: Math.random() * (areaWidth - 90), y: 100 + i * (areaHeight / 7), visual: createVisual('platform') });
-            }
-        }
-
-        function createVisual(className) {
-            const div = document.createElement('div');
-            div.className = className;
-            gameArea.appendChild(div);
-            return div;
-        }
-
-        function update() {
-            if (isGameOver) return;
-            velocityY += gravity;
-            playerY -= velocityY;
-
-            if (playerY > areaHeight / 2) {
-                let diff = playerY - areaHeight / 2;
-                playerY = areaHeight / 2;
-                platforms.forEach(p => {
-                    p.y -= diff;
-                    if (p.y < 0) {
-                        p.y = areaHeight; p.x = Math.random() * (areaWidth - p.w);
-                        score++; scoreElement.innerText = score;
-                        if (score % 4 === 0) items.push(new FallingObject());
-                    }
-                });
-                items.forEach(item => item.y -= diff);
-            }
-
-            if (velocityY > 0) {
-                platforms.forEach(p => {
-                    if (playerX + 55 > p.x && playerX + 15 < p.x + p.w && playerY > p.y && playerY < p.y + p.h) velocityY = jumpStrength;
-                });
-            }
-
-            items.forEach((item, index) => {
-                item.render();
-                if (playerX + 60 > item.x && playerX < item.x + item.w && playerY + 60 > item.y && playerY < item.y + item.h) {
-                    if (item.type === 'boost') velocityY = boostStrength;
-                    else if (item.type === 'danger') velocityY = 18;
-                    else if (item.type === 'superScore') { score += 15; scoreElement.innerText = score; velocityY = jumpStrength; }
-                    item.visual.remove(); items.splice(index, 1);
-                }
-                if (item.y < -100) { item.visual.remove(); items.splice(index, 1); }
-            });
-
-            if (playerY < -50) endGame();
-            player.style.transform = `translate(${playerX}px, ${areaHeight - playerY - 70}px)`;
-            platforms.forEach(p => { p.visual.style.left = p.x + 'px'; p.visual.style.top = (areaHeight - p.y) + 'px'; });
-            animationId = requestAnimationFrame(update);
-        }
-
-        function handleMove(e) {
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const rect = gameArea.getBoundingClientRect();
-            playerX = clientX - rect.left - 35;
-            if (playerX < 0) playerX = 0;
-            if (playerX > areaWidth - 70) playerX = areaWidth - 70;
-        }
-
-        gameArea.addEventListener('mousemove', handleMove);
-        gameArea.addEventListener('touchmove', (e) => { e.preventDefault(); handleMove(e); }, { passive: false });
-
-        function endGame() {
-            isGameOver = true;
-            cancelAnimationFrame(animationId);
-            gameOverScreen.style.display = 'flex';
-            finalScoreElement.innerText = score;
-        }
-
-        function resetGame() { location.reload(); }
-
-        initPlatforms();
-        update();
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="./js/game.js"></script>
 </body>
 </html>

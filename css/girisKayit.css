@@ -234,9 +234,6 @@ body {
     transform: translateX(100%); 
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────── */
-
-/* Tablet */
 @media (max-width: 900px) {
     .container {
         width: 95vw;
@@ -244,7 +241,6 @@ body {
     }
 }
 
-/* Mobil: animasyonsuz tek sütun */
 @media (max-width: 640px) {
     body {
         padding: 20px;
@@ -263,12 +259,10 @@ body {
         box-shadow: 0 10px 40px rgba(0,0,0,0.25);
     }
 
-    /* Toggle container (fotoğraflı panel) - mobilde gizle */
     .toggle-container {
         display: none;
     }
 
-    /* Her iki form tam genişlik */
     .form-container {
         position: relative;
         width: 100%;
@@ -278,7 +272,6 @@ body {
         z-index: 1;
     }
 
-    /* Aktif olmayan formu gizle */
     .sign-in {
         display: block;
     }
@@ -302,7 +295,6 @@ body {
         z-index: 5;
     }
 
-    /* Mobil geçiş butonları - toggle panel yokken alternatif */
     .form-container form {
         padding: 30px 24px 36px;
     }
@@ -311,7 +303,6 @@ body {
         font-size: 26px;
     }
 
-    /* Mobil için form altına geçiş bağlantısı ekle */
     .mobile-switch {
         display: block;
         text-align: center;

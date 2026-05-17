@@ -408,17 +408,6 @@ body.rm-open{overflow:hidden}
 .rm-dot-btn{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.14);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s}
 .rm-dot-btn.active{background:var(--olive-branch,#8a8550);transform:scale(1.4)}
 .rm-dot-btn:hover:not(.active){background:rgba(255,255,255,.28)}
-
-@media(max-width:640px){
-  .recipe-grid-section{padding:28px 16px 56px}
-  .rgs-search{width:100%}
-  .rm-layout{flex-direction:column}
-  .rm-ingredients-panel{width:100%;min-width:unset;border-right:none;border-bottom:1px solid rgba(255,255,255,.06);max-height:140px;padding:14px 16px}
-  .rm-ingredients-list{flex-direction:row;flex-wrap:wrap;gap:6px}
-  .rm-ingredient{background:rgba(255,255,255,.05);border-bottom:none;padding:4px 9px;border-radius:20px;flex-direction:column;gap:1px}
-  .rm-ing-name{font-size:11px}
-  .rm-ing-amount{font-size:10px}
-  .rm-steps-panel{padding:18px 16px 18px}
 }`;
     document.head.appendChild(s);
   }
