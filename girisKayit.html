@@ -29,6 +29,12 @@
                 <p id="passError" style="color: #b70d01; font-size: 11px; display: none; margin: 5px 0; text-align: left; width: 100%;">* En az 6 karakter, 1 büyük harf ve 1 sayı içermeli.</p>
                 
                 <button type="button" onclick="signUpUser()">Kayıt Ol</button>
+                <div class="googleicon">
+                    <button type="button" class="google-btn" onclick="signInWithGoogle()">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" height="18">
+                        Google ile Kayıt Ol
+                    </button>
+                </div>
                 <p class="mobile-switch">Zaten hesabınız var mı? <a onclick="document.getElementById('container').classList.remove('active')">Giriş Yap</a></p>
             </form>
         </div>
@@ -48,6 +54,12 @@
                 
                 <a href="#" id="forgotPassword">Şifremi Unuttum</a>
                 <button type="button" onclick="signInUser()">Giriş Yap</button>
+                <div class="googleicon">
+                    <button type="button" class="google-btn" onclick="signInWithGoogle()">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" height="18">
+                        Google ile Giriş Yap
+                    </button>
+                </div>
                 <p class="mobile-switch">Hesabınız yok mu? <a onclick="document.getElementById('container').classList.add('active')">Kayıt Ol</a></p>
             </form>
         </div>

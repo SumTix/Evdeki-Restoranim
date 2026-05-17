@@ -3158,46 +3158,6 @@
                 "Süt ve kremayı köpürterek sütlü şerbeti hazırlayıp kekin üzerine dökün.",
                 "Kek sütü tamamen çektiğinde üzerine karamel sosu yayın ve dolapta dinlendirerek servis yapın."
               ]
-            },
-            {
-              "id": "keskul",
-              "ad": "Bademli Keşkül",
-              "emoji": "🍮",
-              "sure": "20 dk",
-              "porsiyon": 6,
-              "malzemeler": [
-                {
-                  "ad": "süt",
-                  "miktar": 1,
-                  "birim": "litre"
-                },
-                {
-                  "ad": "toz şeker",
-                  "miktar": 1,
-                  "birim": "su bardağı"
-                },
-                {
-                  "ad": "toz badem",
-                  "miktar": 1,
-                  "birim": "çay bardağı"
-                },
-                {
-                  "ad": "pirinç unu",
-                  "miktar": 2,
-                  "birim": "yemek kaşığı"
-                },
-                {
-                  "ad": "yumurta sarısı",
-                  "miktar": 1,
-                  "birim": "adet"
-                }
-              ],
-              "adimlar": [
-                "Tencereye süt, yumurta sarısı, şeker, pirinç unu ve toz bademi alın.",
-                "Ocağı yakmadan önce çırpıcı ile tüm malzemeyi pürüzsüz olana kadar karıştırın.",
-                "Orta ateşte sürekli karıştırarak kıvam alıp göz göz olana kadar pişirin.",
-                "Kaselere paylaştırıp soğuduktan sonra üzerine file badem serperek servis yapın."
-              ]
             }
           ]
         }

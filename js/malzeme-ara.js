@@ -2,6 +2,7 @@
   var allIngredients = [];
   var selected = [];
   var allRecipes = [];
+  var photoBasePath = './css/assets/tarifler/';
 
   var el = {
     input: null,
@@ -134,10 +135,16 @@
     var stepCount = (recipe.adimlar || []).length;
     var ingCount = (recipe.malzemeler || []).length;
     var emoji = recipe.emoji || '🍽️';
+    var photoPath = photoBasePath + recipe.id + '.jpg';
 
     card.innerHTML =
       '<div class="rc-inner">' +
-        '<div class="rc-emoji">' + emoji + '</div>' +
+        '<div class="rc-photo">' +
+          '<img src="' + photoPath + '" alt="' + (recipe.ad || '') + '" loading="lazy"' +
+               ' onerror="this.style.display=\'none\'"' +
+               ' onload="this.parentElement.classList.add(\'rc-photo--loaded\')">' +
+          '<div class="rc-photo-emoji">' + emoji + '</div>' +
+        '</div>' +
         '<div class="rc-badges">' +
           '<span class="rc-badge">' + stepCount + ' Adım</span>' +
           (recipe.sure ? '<span class="rc-badge rc-badge--dim">⏱ ' + recipe.sure + '</span>' : '') +
@@ -168,6 +175,21 @@
     if (!modalEl) buildModal();
     modalEl.querySelector('.rm-title').textContent =
       (recipe.emoji ? recipe.emoji + '  ' : '') + (recipe.ad || 'Tarif');
+    var photoPath = photoBasePath + recipe.id + '.jpg';
+    var modalPhoto = modalEl.querySelector('.rm-modal-photo');
+    var modalImg = modalPhoto.querySelector('img');
+    var modalEmoji = modalPhoto.querySelector('.rm-modal-photo-emoji');
+    modalPhoto.classList.remove('rm-modal-photo--loaded');
+    modalImg.style.display = 'none';
+    modalImg.src = photoPath;
+    modalImg.onload = function () {
+      modalPhoto.classList.add('rm-modal-photo--loaded');
+      modalImg.style.display = 'block';
+    };
+    modalImg.onerror = function () {
+      modalImg.style.display = 'none';
+    };
+    modalEmoji.textContent = recipe.emoji || '🍽️';
     modalEl.querySelector('.rm-meta-row').innerHTML = [
       recipe.sure ? '<span class="rm-chip">⏱ ' + recipe.sure + '</span>' : '',
       recipe.porsiyon ? '<span class="rm-chip">👤 ' + recipe.porsiyon + ' kişilik</span>' : '',
@@ -237,6 +259,7 @@
       '<div class="rm-layout">' +
         '<aside class="rm-ingredients-panel"><div class="rm-panel-label">Malzemeler</div><ul class="rm-ingredients-list"></ul></aside>' +
         '<div class="rm-steps-panel">' +
+          '<div class="rm-modal-photo"><img alt=""><div class="rm-modal-photo-emoji"></div></div>' +
           '<h2 class="rm-title"></h2><div class="rm-meta-row"></div>' +
           '<div class="rm-progress-bar"><div class="rm-progress-fill"></div></div>' +
           '<div class="rm-step-area"><div class="rm-step-num"></div><p class="rm-step-text"></p></div>' +
@@ -290,6 +313,11 @@
 '.recipe-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 20px 40px rgba(0,0,0,.32);border-color:rgba(138,133,80,.45)}' +
 '.rc-inner{padding:22px 20px 20px;display:flex;flex-direction:column;gap:6px;min-height:200px}' +
 '.rc-emoji{font-size:2rem;line-height:1;margin-bottom:4px}' +
+'.rc-photo{width:100%;height:150px;border-radius:14px;overflow:hidden;position:relative;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:8px;flex-shrink:0}' +
+'.rc-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}' +
+'.rc-photo.rc-photo--loaded img{display:block}' +
+'.rc-photo-emoji{font-size:2.8rem;line-height:1;opacity:.6;transition:opacity .25s}' +
+'.rc-photo.rc-photo--loaded .rc-photo-emoji{opacity:0;pointer-events:none}' +
 '.rc-badges{display:flex;gap:5px;flex-wrap:wrap}' +
 '.rc-badge{display:inline-flex;align-items:center;background:rgba(138,133,80,.16);color:var(--olive-branch,#a09858);font-family:\'Poppins\',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px}' +
 '.rc-badge--dim{background:rgba(255,255,255,.06);color:rgba(255,255,255,.45)}' +
@@ -334,6 +362,11 @@
 '.rm-dot-btn{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.14);border:none;cursor:pointer;padding:0;transition:background .2s,transform .2s}' +
 '.rm-dot-btn.active{background:var(--olive-branch,#8a8550);transform:scale(1.4)}' +
 '.rm-dot-btn:hover:not(.active){background:rgba(255,255,255,.28)}' +
+'.rm-modal-photo{width:100%;height:200px;border-radius:14px;overflow:hidden;position:relative;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0}' +
+'.rm-modal-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}' +
+'.rm-modal-photo.rm-modal-photo--loaded img{display:block}' +
+'.rm-modal-photo-emoji{font-size:3.2rem;line-height:1;opacity:.6;transition:opacity .25s}' +
+'.rm-modal-photo.rm-modal-photo--loaded .rm-modal-photo-emoji{opacity:0;pointer-events:none}' +
 '@media(max-width:640px){.ma-section{padding:28px 16px 56px}.rm-layout{flex-direction:column}.rm-ingredients-panel{width:100%;min-width:unset;border-right:none;border-bottom:1px solid rgba(255,255,255,.06);max-height:140px;padding:14px 16px}.rm-ingredients-list{flex-direction:row;flex-wrap:wrap;gap:6px}.rm-ingredient{background:rgba(255,255,255,.05);border-bottom:none;padding:4px 9px;border-radius:20px;flex-direction:column;gap:1px}.rm-ing-name{font-size:11px}.rm-ing-amount{font-size:10px}.rm-steps-panel{padding:18px 16px 18px}}';
     document.head.appendChild(s);
   }

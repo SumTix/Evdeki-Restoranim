@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyA1mrPoDxYnOQzT_jY5sViGApEovIiWe_E",
-    authDomain: "evdeki-restoranim.firebaseapp.com",
-    projectId: "evdeki-restoranim",
-    storageBucket: "evdeki-restoranim.firebasestorage.app",
-    messagingSenderId: "319407352503",
-    appId: "1:319407352503:web:1e5582dddca28b3662fb32",
-    measurementId: "G-NY6V7L1E8H"
+    apiKey: "AIzaSyAII5NbG7hFd0lItCsOwnoVdYWXzc5ztyE",
+    authDomain: "evdeki-restoranim-1.firebaseapp.com",
+    projectId: "evdeki-restoranim-1",
+    storageBucket: "evdeki-restoranim-1.firebasestorage.app",
+    messagingSenderId: "238625102318",
+    appId: "1:238625102318:web:449783527cdb6fcc8656ff",
+    measurementId: "G-EK97FS901E"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -69,9 +69,7 @@ window.signUpUser = async () => {
             highScore: 0
         });
 
-        await user.sendEmailVerification();
-        alert("Kayıt başarılı! Lütfen mailinizi onaylayın.");
-        container.classList.remove("active");
+        window.location.href = "index.html";
 
     } catch (error) {
         alert("Kayıt hatası: " + error.message);
@@ -93,5 +91,26 @@ window.signInUser = async () => {
         }
     } catch (error) {
         errorMsg.style.display = "block";
+    }
+};
+
+window.signInWithGoogle = async () => {
+    try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+
+        const doc = await db.collection("users").doc(user.uid).get();
+        if (!doc.exists) {
+            await db.collection("users").doc(user.uid).set({
+                name: user.displayName || "Kullanıcı",
+                email: user.email,
+                highScore: 0
+            });
+        }
+
+        window.location.href = "index.html";
+    } catch (error) {
+        alert("Google giriş hatası: " + error.message);
     }
 };

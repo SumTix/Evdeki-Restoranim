@@ -1,3 +1,4 @@
+const PHOTO_EXT = {"menemen":"webp","kuymak":"webp","sucuklu-yumurta":"webp","pankek":"jpg","krep":"jpg","karniyarik":"webp","kuru-fasulye":"png","pirinc-pilavi":"jpg","mercimek-corbasi":"jpg","firin-tavuk":"avif","puf-pisi":"jpg","cilbir":"jpg","kasarli-gozleme":"webp","gevrek-simit":"jpg","boyoz":"jpg","iskender-kebap":"jpg","mantar-sote":"webp","icli-kofte":"jpg","zeytinyagli-fasulye":"jpg","manti":"jpg","ali-nazik":"jpg","et-sote":"jpg","sigara-boregi":"jpg","patatesli-omlet":"webp","zeytinli-acma":"avif","peynirli-dereotlu-pogaca":"webp","kasarli-menemen":"jpg","etli-yaprak-sarma":"jpg","firin-kofte-patates":"jpg","bezelye-yemegi":"jpg","tavuk-sote":"png","firin-makarna":"webp","kis-turlusu":"jpg","bamya-yemegi":"jpg","patlican-musakka":"jpg","sehriye-corbasi":"webp","yayla-corbasi":"jpg","soganli-menemen":"jpg","bufe-tostu":"avif","tavada-su-boregi":"jpg","tavuklu-pilav":"jpg","firinda-cipura":"jpg","zeytinyagli-kereviz":"jpg","nohut-yemegi":"jpg","meyhaneli-bulgur":"webp","tas-kebabi":"jpg","firin-kanat":"jpg","bol-kopuklu-ayran":"webp","turk-kahvesi":"webp","ev-yapimi-limonata":"jpg","reyhan-serbeti":"jpg","demleme-cay":"jpg","salgam-suyu":"webp","gercek-sahlep":"webp","visne-kompostosu":"jpg","nane-limon":"jpg","ihlamur-cayi":"jpg","elma-cayi":"jpg","taze-portakal-suyu":"webp","karadut-surubu":"jpg","kayisi-kompostosu":"jpg","ev-yapimi-kefir":"jpg","seftalili-soguk-cay":"jpg","kusburnu-cayi":"webp","sutlac":"jpg","mozaik-pasta":"jpg","irmik-helvasi":"jpg","revani":"jpg","firin-sutlac":"jpg","sekerpare":"jpg","kazandibi":"jpg","ev-baklavasi":"jpg","ekmek-kadayifi":"jpg","gullac":"jpg","gercek-supangle":"jpg","profiterol":"webp","incir-uyutmasi":"jpg","cevizli-lokum":"jpg","sutlu-irmik-tatlisi":"jpg","kadayif-dolmasi":"webp","kabak-tatlisi":"jpg","dondurmali-irmik":"jpg","ayva-tatlisi":"jpg","trilece":"jpg","keskul":"jpg","salcali-sosis":"jpg","kremali-makarna":"jpg","tavada-tavuk":"jpg","ton-balikli-salata":"jpg","lavas-pizza":"jpg","yumurtali-ekmek":"jpg","yulaf-lapasi":"jpg","kasarli-tost":"jpg","granola-kasesi":"jpg","pratik-omlet":"jpg","fincanda-yumurta":"jpg","avokadolu-tost":"jpg","pratik-krep":"jpg","milfoy-borek":"jpg","tavada-pratik-manti":"jpg","sosisli-makarna":"jpg","sebzeli-noodle":"jpg","tavuk-durum":"jpg","cop-sis":"jpg","peynirli-makarna":"jpg","biberli-lor-kavurmasi":"jpg","avokadolu-peynirli-ekmek":"jpg","tavada-peynirli-yumurta":"jpg","korili-tavuklu-makarna":"jpg","ton-balikli-sandvic":"jpg","salcali-milfoy":"jpg","tavada-lavas-tost":"jpg","firin-patates-cipsi":"jpg","yufkadan-gozleme":"webp","citir-tavuk-parcalari":"jpg","ev-yapimi-granola-bar":"jpg","kasarli-krep-tost":"jpg","bardakta-yulaf":"jpg","fistik-ezmeli-muzlu-tost":"jpg","yumurta-salatasi":"jpg","ton-balikli-lavas":"jpg","sucuklu-makarna":"jpg","tavada-tavuk-sis":"jpg","yogurtlu-semizotu":"jpg","milfoy-sosis-rulo":"jpg","soguk-kahve":"jpg","cilekli-milkshake":"jpg","detoks-suyu":"jpg","naneli-ayran":"jpg","meyveli-soda":"jpg","hizli-limonata":"jpg","muzlu-sut":"jpg","cilekli-kefir":"jpg","soguk-yesil-cay":"jpg","karpuz-frozen":"jpg","kavun-subye":"jpg","nescafeli-frappe":"jpg","pratik-atom":"jpg","mikrodalga-kek":"jpg","biskuvili-pasta":"jpg","bardak-tiramisu":"jpg","muzlu-rulo":"jpg","supangle":"jpg","biskuvili-puding":"jpg","mikrodalga-brownie":"jpg","kakaolu-sutlu-tatli":"jpg","tavada-sufle":"jpg","muzlu-rulo-krep":"jpg","cilekli-magnolia":"jpg","irmik-toplari":"jpg","izgara-somon":"jpg","tavuklu-kinoa":"jpg","lorlu-omlet":"jpg","fistik-ezmeli-bar":"jpg","haslanmis-tavuk":"webp","lorlu-salata":"webp","ton-balikli-makarna":"jpg","hindi-sote":"jpg","karabugday-pilavi":"jpg","izgara-tavuk-sis":"jpg","kinoali-avokado-salatasi":"jpg","yumurta-aki-pankeki":"jpg","firin-tatli-patates":"jpg","hindi-fume-sandvic":"jpg","kinoa-koftesi":"jpg","izgara-levrek":"jpg","firin-tavuk-sinitzel":"jpg","nohutlu-brokoli-salatasi":"jpg","protein-shake":"jpg","yesil-smoothie":"jpg","pancar-suyu":"jpg","orman-meyveli-shake":"jpg","zencefil-shot":"jpg","kakaolu-protein-sut":"jpg","bcaa-karpuz":"jpg","spirulina-smoothie":"jpg","glutamin-elma":"png","sekersiz-puding":"jpg","fit-kek":"jpg","chia-tatlisi":"jpg","ev-yapimi-protein-bar":"jpg","fistik-ezmeli-kurabiye":"jpg","yulafli-enerji-topu":"jpg","proteinli-muzlu-ekmek":"jpg","yulaf-puding":"jpg","muz-dondurmasi":"jpg","havuc-puresi":"jpg","kabak-puresi":"jpg","patates-puresi":"jpg","kabakli-pirinc-corbasi":"jpg","brokoli-puresi":"jpg","sebzeli-tarhana":"jpg","balkabagi-corbasi-bebek":"jpg","kereviz-puresi-bebek":"jpg","bebek-koftesi":"jpg","seftalili-yogurt":"jpg","elmali-muhallebi":"jpg","irmikli-armut":"jpg","muzlu-yulaf-bebek":"jpg","hurmali-bebek-biskuvisi":"jpg"};
 const savedIngredients = JSON.parse(localStorage.getItem("ingredients"));
 console.log(savedIngredients);
 
@@ -82,9 +83,13 @@ function renderFloatingItems(foods) {
         const div = document.createElement('div');
         div.className = `side-item pos-${index + 1}`;
         div.setAttribute('data-depth', (index + 1) * 0.1);
+        div.style.cursor = 'pointer';
         const emoji = food.emoji ? food.emoji + ' ' : '';
         const meta  = food.sure  ? `<span style="color:var(--olive-branch);font-size:12px;font-weight:600;">${food.sure}</span>` : '';
         div.innerHTML = `${emoji}${food.ad} ${meta}`;
+        div.addEventListener('click', () => {
+            if (typeof openModalFull === 'function') openModalFull(food);
+        });
         container.appendChild(div);
     });
 }
@@ -100,6 +105,10 @@ fetch('/Yemekler5.json')
         const heroName = document.getElementById('main-dish-name');
         if (heroName) {
             heroName.textContent = (hero.emoji ? hero.emoji + '  ' : '') + hero.ad;
+        }
+        const heroBg = document.querySelector('.hero-card-bg');
+        if (heroBg) {
+            heroBg.style.backgroundImage = `url('./css/assets/tarifler/${hero.id}.${PHOTO_EXT[hero.id] || 'jpg'}')`;
         }
     })
     .catch(() => {
@@ -134,13 +143,13 @@ document.addEventListener('mouseleave', () => {
 let auth = null;
 if (typeof firebase !== 'undefined') {
     const firebaseConfig = {
-        apiKey:            "AIzaSyA1mrPoDxYnOQzT_jY5sViGApEovIiWe_E",
-        authDomain:        "evdeki-restoranim.firebaseapp.com",
-        projectId:         "evdeki-restoranim",
-        storageBucket:     "evdeki-restoranim.firebasestorage.app",
-        messagingSenderId: "319407352503",
-        appId:             "1:319407352503:web:1e5582dddca28b3662fb32",
-        measurementId:     "G-NY6V7L1E8H",
+        apiKey:            "AIzaSyAII5NbG7hFd0lItCsOwnoVdYWXzc5ztyE",
+        authDomain:        "evdeki-restoranim-1.firebaseapp.com",
+        projectId:         "evdeki-restoranim-1",
+        storageBucket:     "evdeki-restoranim-1.firebasestorage.app",
+        messagingSenderId: "238625102318",
+        appId:             "1:238625102318:web:449783527cdb6fcc8656ff",
+        measurementId:     "G-EK97FS901E",
     };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();

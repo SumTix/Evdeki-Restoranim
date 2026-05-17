@@ -34,9 +34,12 @@
     const ingCount   = (recipe.malzemeler || []).length;
     const emoji      = recipe.emoji || '🍽️';
     const breadcrumb = recipe._altKategori || '';
+    const photoPath  = `./css/assets/tarifler/${recipe.id}.${PHOTO_EXT[recipe.id] || 'jpg'}`;
     card.innerHTML = `
       <div class="rc-inner">
-        <div class="rc-emoji">${emoji}</div>
+        <div class="rc-photo">
+          <div class="rc-photo-emoji">${emoji}</div>
+        </div>
         <div class="rc-badges">
           <span class="rc-badge">${stepCount} Adım</span>
           ${recipe.sure    ? `<span class="rc-badge rc-badge--dim">⏱ ${recipe.sure}</span>`    : ''}
@@ -51,6 +54,13 @@
         </button>
       </div>
     `;
+    const photoDiv = card.querySelector('.rc-photo');
+    const img = document.createElement('img');
+    img.alt = recipe.ad;
+    img.onerror = () => { img.style.display = 'none'; };
+    img.onload = () => { photoDiv.classList.add('rc-photo--loaded'); };
+    img.src = photoPath;
+    photoDiv.insertBefore(img, photoDiv.firstChild);
     const open = (e) => { if (e) e.stopPropagation(); openModalFull(recipe); };
     card.querySelector('.rc-open-btn').addEventListener('click', open);
     card.addEventListener('click', open);
@@ -110,6 +120,8 @@
   let currentStep = 0;
   let steps       = [];
 
+  window.openModalFull = openModalFull;
+  const PHOTO_EXT = {"menemen":"webp","kuymak":"webp","sucuklu-yumurta":"webp","pankek":"jpg","krep":"jpg","karniyarik":"webp","kuru-fasulye":"png","pirinc-pilavi":"jpg","mercimek-corbasi":"jpg","firin-tavuk":"avif","puf-pisi":"jpg","cilbir":"jpg","kasarli-gozleme":"webp","gevrek-simit":"jpg","boyoz":"jpg","iskender-kebap":"jpg","mantar-sote":"webp","icli-kofte":"jpg","zeytinyagli-fasulye":"jpg","manti":"jpg","ali-nazik":"jpg","et-sote":"jpg","sigara-boregi":"jpg","patatesli-omlet":"webp","zeytinli-acma":"avif","peynirli-dereotlu-pogaca":"webp","kasarli-menemen":"jpg","etli-yaprak-sarma":"jpg","firin-kofte-patates":"jpg","bezelye-yemegi":"jpg","tavuk-sote":"png","firin-makarna":"webp","kis-turlusu":"jpg","bamya-yemegi":"jpg","patlican-musakka":"jpg","sehriye-corbasi":"webp","yayla-corbasi":"jpg","soganli-menemen":"jpg","bufe-tostu":"avif","tavada-su-boregi":"jpg","tavuklu-pilav":"jpg","firinda-cipura":"jpg","zeytinyagli-kereviz":"jpg","nohut-yemegi":"jpg","meyhaneli-bulgur":"webp","tas-kebabi":"jpg","firin-kanat":"jpg","bol-kopuklu-ayran":"webp","turk-kahvesi":"webp","ev-yapimi-limonata":"jpg","reyhan-serbeti":"jpg","demleme-cay":"jpg","salgam-suyu":"webp","gercek-sahlep":"webp","visne-kompostosu":"jpg","nane-limon":"jpg","ihlamur-cayi":"jpg","elma-cayi":"jpg","taze-portakal-suyu":"webp","karadut-surubu":"jpg","kayisi-kompostosu":"jpg","ev-yapimi-kefir":"jpg","seftalili-soguk-cay":"jpg","kusburnu-cayi":"webp","sutlac":"jpg","mozaik-pasta":"jpg","irmik-helvasi":"jpg","revani":"jpg","firin-sutlac":"jpg","sekerpare":"jpg","kazandibi":"jpg","ev-baklavasi":"jpg","ekmek-kadayifi":"jpg","gullac":"jpg","gercek-supangle":"jpg","profiterol":"webp","incir-uyutmasi":"jpg","cevizli-lokum":"jpg","sutlu-irmik-tatlisi":"jpg","kadayif-dolmasi":"webp","kabak-tatlisi":"jpg","dondurmali-irmik":"jpg","ayva-tatlisi":"jpg","trilece":"jpg","salcali-sosis":"jpg","kremali-makarna":"jpg","tavada-tavuk":"jpg","ton-balikli-salata":"jpg","lavas-pizza":"jpg","yumurtali-ekmek":"jpg","yulaf-lapasi":"jpg","kasarli-tost":"jpg","granola-kasesi":"jpg","pratik-omlet":"jpg","fincanda-yumurta":"jpg","avokadolu-tost":"jpg","pratik-krep":"jpg","milfoy-borek":"jpg","tavada-pratik-manti":"jpg","sosisli-makarna":"jpg","sebzeli-noodle":"jpg","tavuk-durum":"jpg","cop-sis":"jpg","peynirli-makarna":"jpg","biberli-lor-kavurmasi":"jpg","avokadolu-peynirli-ekmek":"jpg","tavada-peynirli-yumurta":"jpg","korili-tavuklu-makarna":"jpg","ton-balikli-sandvic":"jpg","salcali-milfoy":"jpg","tavada-lavas-tost":"jpg","firin-patates-cipsi":"jpg","yufkadan-gozleme":"webp","citir-tavuk-parcalari":"jpg","ev-yapimi-granola-bar":"jpg","kasarli-krep-tost":"jpg","bardakta-yulaf":"jpg","fistik-ezmeli-muzlu-tost":"jpg","yumurta-salatasi":"jpg","ton-balikli-lavas":"jpg","sucuklu-makarna":"jpg","tavada-tavuk-sis":"jpg","yogurtlu-semizotu":"jpg","milfoy-sosis-rulo":"jpg","soguk-kahve":"jpg","cilekli-milkshake":"jpg","detoks-suyu":"jpg","naneli-ayran":"jpg","meyveli-soda":"jpg","hizli-limonata":"jpg","muzlu-sut":"jpg","cilekli-kefir":"jpg","soguk-yesil-cay":"jpg","karpuz-frozen":"jpg","kavun-subye":"jpg","nescafeli-frappe":"jpg","pratik-atom":"jpg","mikrodalga-kek":"jpg","biskuvili-pasta":"jpg","bardak-tiramisu":"jpg","muzlu-rulo":"jpg","supangle":"jpg","biskuvili-puding":"jpg","mikrodalga-brownie":"jpg","kakaolu-sutlu-tatli":"jpg","tavada-sufle":"jpg","muzlu-rulo-krep":"jpg","cilekli-magnolia":"jpg","irmik-toplari":"jpg","izgara-somon":"jpg","tavuklu-kinoa":"jpg","lorlu-omlet":"jpg","fistik-ezmeli-bar":"jpg","haslanmis-tavuk":"webp","lorlu-salata":"webp","ton-balikli-makarna":"jpg","hindi-sote":"jpg","karabugday-pilavi":"jpg","izgara-tavuk-sis":"jpg","kinoali-avokado-salatasi":"jpg","yumurta-aki-pankeki":"jpg","firin-tatli-patates":"jpg","hindi-fume-sandvic":"jpg","kinoa-koftesi":"jpg","izgara-levrek":"jpg","firin-tavuk-sinitzel":"jpg","nohutlu-brokoli-salatasi":"jpg","protein-shake":"jpg","yesil-smoothie":"jpg","pancar-suyu":"jpg","orman-meyveli-shake":"jpg","zencefil-shot":"jpg","kakaolu-protein-sut":"jpg","bcaa-karpuz":"jpg","spirulina-smoothie":"jpg","glutamin-elma":"png","sekersiz-puding":"jpg","fit-kek":"jpg","chia-tatlisi":"jpg","ev-yapimi-protein-bar":"jpg","fistik-ezmeli-kurabiye":"jpg","yulafli-enerji-topu":"jpg","proteinli-muzlu-ekmek":"jpg","yulaf-puding":"jpg","muz-dondurmasi":"jpg","havuc-puresi":"jpg","kabak-puresi":"jpg","patates-puresi":"jpg","kabakli-pirinc-corbasi":"jpg","brokoli-puresi":"jpg","sebzeli-tarhana":"jpg","balkabagi-corbasi-bebek":"jpg","kereviz-puresi-bebek":"jpg","bebek-koftesi":"jpg","seftalili-yogurt":"jpg","elmali-muhallebi":"jpg","irmikli-armut":"jpg","muzlu-yulaf-bebek":"jpg","hurmali-bebek-biskuvisi":"jpg"};
   function openModalFull(recipe) {
     steps = (recipe.adimlar || []).map((text, i) => ({ num: i + 1, text }));
     currentStep = 0;
@@ -118,6 +130,21 @@
 
     modalEl.querySelector('.rm-title').textContent =
       (recipe.emoji ? recipe.emoji + '  ' : '') + (recipe.ad || 'Tarif');
+
+    const modalPhoto = modalEl.querySelector('.rm-modal-photo');
+    const modalImg = modalPhoto.querySelector('img');
+    const modalEmoji = modalPhoto.querySelector('.rm-modal-photo-emoji');
+    modalPhoto.classList.remove('rm-modal-photo--loaded');
+    modalImg.style.display = 'none';
+    modalImg.src = `./css/assets/tarifler/${recipe.id}.${PHOTO_EXT[recipe.id] || 'jpg'}`;
+    modalImg.onload = () => {
+      modalPhoto.classList.add('rm-modal-photo--loaded');
+      modalImg.style.display = 'block';
+    };
+    modalImg.onerror = () => {
+      modalImg.style.display = 'none';
+    };
+    modalEmoji.textContent = recipe.emoji || '🍽️';
 
     modalEl.querySelector('.rm-meta-row').innerHTML = [
       recipe.sure     ? `<span class="rm-chip">⏱ ${recipe.sure}</span>`      : '',
@@ -196,6 +223,7 @@
           <ul class="rm-ingredients-list"></ul>
         </aside>
         <div class="rm-steps-panel">
+          <div class="rm-modal-photo"><img alt=""><div class="rm-modal-photo-emoji"></div></div>
           <h2 class="rm-title"></h2>
           <div class="rm-meta-row"></div>
           <div class="rm-progress-bar"><div class="rm-progress-fill"></div></div>
@@ -266,6 +294,18 @@
 .rc-meta{font-family:'Poppins',sans-serif;font-size:11px;color:rgba(255,255,255,.3);margin:0}
 .rc-open-btn{margin-top:auto;display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid rgba(255,255,255,.1);border-radius:24px;color:var(--olive-branch,#a09858);font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;cursor:pointer;width:fit-content;transition:background .2s,border-color .2s,gap .2s}
 .rc-open-btn:hover{background:rgba(138,133,80,.15);border-color:var(--olive-branch,#a09858);gap:11px}
+
+.rc-photo{width:100%;height:150px;border-radius:14px;overflow:hidden;position:relative;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:8px;flex-shrink:0}
+.rc-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.rc-photo.rc-photo--loaded img{display:block}
+.rc-photo-emoji{font-size:2.8rem;line-height:1;opacity:.6;transition:opacity .25s}
+.rc-photo.rc-photo--loaded .rc-photo-emoji{opacity:0;pointer-events:none}
+
+.rm-modal-photo{width:100%;height:200px;border-radius:14px;overflow:hidden;position:relative;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0}
+.rm-modal-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}
+.rm-modal-photo.rm-modal-photo--loaded img{display:block}
+.rm-modal-photo-emoji{font-size:3.2rem;line-height:1;opacity:.6;transition:opacity .25s}
+.rm-modal-photo.rm-modal-photo--loaded .rm-modal-photo-emoji{opacity:0;pointer-events:none}
 
 .rm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(10px);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s ease}
 .rm-overlay.rm-visible{opacity:1;pointer-events:auto}
