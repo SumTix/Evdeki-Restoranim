@@ -441,7 +441,7 @@
             height: 80px;
             border-radius: 50%;
             border: 3px solid var(--sun-dried-red);
-            background: url('./css/assets/fare.jpeg') center/cover no-repeat;
+            background: url('./assets/fare.jpeg') center/cover no-repeat;
             object-fit: cover;
         }
         .ps-name {

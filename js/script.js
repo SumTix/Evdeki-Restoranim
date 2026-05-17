@@ -153,6 +153,7 @@ if (typeof firebase !== 'undefined') {
     };
     if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();
+    if (typeof Favorites !== 'undefined') Favorites.init(auth);
 
     function refreshHighScore() {
         const score = localStorage.getItem('final-score') || '0';
@@ -166,6 +167,7 @@ if (typeof firebase !== 'undefined') {
         const psName         = document.getElementById('psName');
         const psEmail        = document.getElementById('psEmail');
         const psAvatar       = document.getElementById('psAvatar');
+        const psFavBtn       = document.getElementById('psFavBtn');
 
         if (user) {
             if (loginWrapper) loginWrapper.style.display = 'none';
@@ -178,13 +180,16 @@ if (typeof firebase !== 'undefined') {
             }
             if (psName)  psName.textContent  = user.displayName || 'Kullanıcı';
             if (psEmail) psEmail.textContent = user.email || '';
+            if (psFavBtn) psFavBtn.style.display = '';
             refreshHighScore();
+            updateFavCount();
         } else {
             if (loginWrapper) loginWrapper.style.display = '';
             if (profileIconBtn) {
                 profileIconBtn.style.cursor = 'default';
                 profileIconBtn.onclick = null;
             }
+            if (psFavBtn) psFavBtn.style.display = 'none';
         }
     });
 
@@ -204,5 +209,32 @@ if (typeof firebase !== 'undefined') {
                 console.error("Çıkış sırasında hata:", error);
             }
         });
+    }
+
+    function updateFavCount() {
+      var el = document.getElementById('psFavCount');
+      if (!el || typeof Favorites === 'undefined') return;
+      var n = Favorites.getAll().length;
+      el.textContent = n + ' tarif';
+    }
+
+    if (typeof Favorites !== 'undefined') {
+      Favorites.onChange(function () { updateFavCount(); });
+    }
+
+    var psFavBtn = document.getElementById('psFavBtn');
+    if (psFavBtn) {
+      psFavBtn.addEventListener('click', function () {
+        var toggleBtn = document.getElementById('favFilterBtn');
+        if (toggleBtn) {
+          document.getElementById('profileSidebar').classList.remove('open');
+          document.querySelector('.sidebar-overlay').classList.remove('active');
+          var section = document.querySelector('.recipe-grid-section');
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (!toggleBtn.classList.contains('rgs-fav-btn--active')) toggleBtn.click();
+        } else {
+          window.location.href = '/';
+        }
+      });
     }
 }

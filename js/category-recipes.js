@@ -35,11 +35,34 @@
     section.innerHTML =
       '<div class="rgs-header">' +
         '<h2 class="rgs-title">' + (config.baslik || 'Tarifler') + ' <span class="rgs-count" id="recipeCount"></span></h2>' +
+        '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">' +
+          '<button class="rgs-fav-btn" id="favFilterBtn" style="display:none">\u2661 Favoriler</button>' +
+        '</div>' +
       '</div>' +
       '<div class="recipe-grid" id="recipeGrid"></div>';
 
     var grid = section.querySelector('#recipeGrid');
     var countEl = section.querySelector('#recipeCount');
+    var favBtn = section.querySelector('#favFilterBtn');
+
+    var showFavOnly = false;
+
+    function updateFavBtn() {
+      var isLoggedIn = typeof Favorites !== 'undefined' && Favorites.getAll().length > 0;
+      if (favBtn) {
+        favBtn.style.display = isLoggedIn ? '' : 'none';
+        favBtn.className = 'rgs-fav-btn' + (showFavOnly ? ' rgs-fav-btn--active' : '');
+        favBtn.textContent = showFavOnly ? '\u2665 Favoriler' : '\u2661 Favoriler';
+      }
+    }
+
+    function getFiltered() {
+      var list = recipes;
+      if (showFavOnly && typeof Favorites !== 'undefined') {
+        list = recipes.filter(function (r) { return Favorites.is(r.id); });
+      }
+      return list;
+    }
 
     function render(list) {
       grid.innerHTML = '';
@@ -55,7 +78,31 @@
       });
     }
 
-    render(recipes);
+    function reRender() { render(getFiltered()); }
+
+    reRender();
+
+    if (favBtn) {
+      favBtn.addEventListener('click', function () {
+        showFavOnly = !showFavOnly;
+        updateFavBtn();
+        reRender();
+      });
+    }
+
+    if (typeof Favorites !== 'undefined') {
+      Favorites.onChange(function () {
+        if (showFavOnly && Favorites.getAll().length === 0) {
+          showFavOnly = false;
+          updateFavBtn();
+          reRender();
+        } else if (showFavOnly) {
+          reRender();
+        }
+      });
+    }
+
+    updateFavBtn();
 
     var searchInput = document.getElementById('recipeSearchInput');
     if (searchInput) {
@@ -105,6 +152,18 @@
     img.onload = function () { photoDiv.classList.add('rc-photo--loaded'); };
     img.src = photoPath;
     photoDiv.insertBefore(img, photoDiv.firstChild);
+
+    if (typeof Favorites !== 'undefined') {
+      var favBtn = document.createElement('button');
+      favBtn.className = 'rc-fav';
+      favBtn.setAttribute('aria-label', 'Favorilere Ekle');
+      favBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+      function updateFav() { favBtn.classList.toggle('rc-fav--active', Favorites.is(recipe.id)); }
+      updateFav();
+      Favorites.onChange(function () { updateFav(); });
+      favBtn.addEventListener('click', function (e) { e.stopPropagation(); Favorites.toggle(recipe.id).then(function () { updateFav(); }); });
+      photoDiv.appendChild(favBtn);
+    }
 
     var open = function (e) { if (e) e.stopPropagation(); openModalFull(recipe); };
     card.querySelector('.rc-open-btn').addEventListener('click', open);
@@ -274,6 +333,9 @@
 '.rgs-title{font-family:\'Marcellus\',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--olive-branch,#8a8550);margin:0;display:flex;align-items:baseline;gap:8px}' +
 '.rgs-count{font-family:\'Poppins\',sans-serif;font-size:.75rem;font-weight:400;color:rgba(255,255,255,.3)}' +
 '.rgs-empty{grid-column:1/-1;text-align:center;color:rgba(255,255,255,.3);font-family:\'Poppins\',sans-serif;font-size:14px;padding:48px 0}' +
+'.rgs-fav-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:9px 18px;color:rgba(255,255,255,.6);font-family:\'Poppins\',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;white-space:nowrap}' +
+'.rgs-fav-btn:hover{border-color:rgba(255,71,87,.5);color:#ff4757}' +
+'.rgs-fav-btn--active{background:rgba(255,71,87,.15)!important;border-color:#ff4757!important;color:#ff4757!important}' +
 '.recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}' +
 '.recipe-card{border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s ease,border-color .2s;animation:rcUp .38s ease both;overflow:hidden}' +
 '@keyframes rcUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}' +
@@ -285,6 +347,9 @@
 '.rc-photo.rc-photo--loaded img{display:block}' +
 '.rc-photo-emoji{font-size:2.8rem;line-height:1;opacity:.6;transition:opacity .25s}' +
 '.rc-photo.rc-photo--loaded .rc-photo-emoji{opacity:0;pointer-events:none}' +
+'.rc-fav{position:absolute;top:8px;right:8px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .22s;padding:0;backdrop-filter:blur(4px)}' +
+'.rc-fav:hover{background:rgba(0,0,0,.7);color:#ff4757;transform:scale(1.1)}' +
+'.rc-fav--active{color:#ff4757!important;background:rgba(255,71,87,.25)!important}' +
 '.rc-badges{display:flex;gap:5px;flex-wrap:wrap}' +
 '.rc-badge{display:inline-flex;align-items:center;background:rgba(138,133,80,.16);color:var(--olive-branch,#a09858);font-family:\'Poppins\',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px}' +
 '.rc-badge--dim{background:rgba(255,255,255,.06);color:rgba(255,255,255,.45)}' +

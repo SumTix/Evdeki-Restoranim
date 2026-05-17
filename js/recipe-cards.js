@@ -61,6 +61,17 @@
     img.onload = () => { photoDiv.classList.add('rc-photo--loaded'); };
     img.src = photoPath;
     photoDiv.insertBefore(img, photoDiv.firstChild);
+    if (typeof Favorites !== 'undefined') {
+      const favBtn = document.createElement('button');
+      favBtn.className = 'rc-fav';
+      favBtn.setAttribute('aria-label', 'Favorilere Ekle');
+      favBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+      function updateFav() { favBtn.classList.toggle('rc-fav--active', Favorites.is(recipe.id)); }
+      updateFav();
+      Favorites.onChange(function () { updateFav(); });
+      favBtn.addEventListener('click', function (e) { e.stopPropagation(); Favorites.toggle(recipe.id).then(function () { updateFav(); }); });
+      photoDiv.appendChild(favBtn);
+    }
     const open = (e) => { if (e) e.stopPropagation(); openModalFull(recipe); };
     card.querySelector('.rc-open-btn').addEventListener('click', open);
     card.addEventListener('click', open);
@@ -78,13 +89,33 @@
     section.innerHTML = `
       <div class="rgs-header">
         <h2 class="rgs-title">Tarifler <span class="rgs-count" id="recipeCount"></span></h2>
-        
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <button class="rgs-fav-btn" id="favFilterBtn" style="display:none">❤ Favoriler</button>
+        </div>
       </div>
       <div class="recipe-grid" id="recipeGrid"></div>
     `;
 
     const grid    = section.querySelector('#recipeGrid');
     const countEl = section.querySelector('#recipeCount');
+    const favBtn  = section.querySelector('#favFilterBtn');
+
+    let showFavOnly = false;
+
+    function updateFavBtn() {
+      const isLoggedIn = typeof Favorites !== 'undefined' && Favorites.getAll().length > 0;
+      favBtn.style.display = isLoggedIn ? '' : 'none';
+      favBtn.classList.toggle('rgs-fav-btn--active', showFavOnly);
+      favBtn.textContent = showFavOnly ? '❤ Favoriler' : '♡ Favoriler';
+    }
+
+    function getFiltered() {
+      let list = recipes;
+      if (showFavOnly && typeof Favorites !== 'undefined') {
+        list = recipes.filter(function (r) { return Favorites.is(r.id); });
+      }
+      return list;
+    }
 
     function render(list) {
       grid.innerHTML = '';
@@ -100,7 +131,31 @@
       });
     }
 
-    render(recipes);
+    function reRender() { render(getFiltered()); }
+
+    reRender();
+
+    if (favBtn) {
+      favBtn.addEventListener('click', function () {
+        showFavOnly = !showFavOnly;
+        updateFavBtn();
+        reRender();
+      });
+    }
+
+    if (typeof Favorites !== 'undefined') {
+      Favorites.onChange(function () {
+        if (showFavOnly && Favorites.getAll().length === 0) {
+          showFavOnly = false;
+          updateFavBtn();
+          reRender();
+        } else if (showFavOnly) {
+          reRender();
+        }
+      });
+    }
+
+    updateFavBtn();
 
     var srch = document.getElementById('recipeSearchInput');
     if (!srch) return;
@@ -278,6 +333,9 @@
 .rgs-search{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:9px 18px;color:inherit;font-family:'Poppins',sans-serif;font-size:13px;width:260px;outline:none;transition:border-color .2s,box-shadow .2s}
 .rgs-search:focus{border-color:var(--olive-branch,#8a8550);box-shadow:0 0 0 3px rgba(138,133,80,.15)}
 .rgs-search::placeholder{opacity:.4}
+.rgs-fav-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:30px;padding:9px 18px;color:rgba(255,255,255,.6);font-family:'Poppins',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.rgs-fav-btn:hover{border-color:rgba(255,71,87,.5);color:#ff4757}
+.rgs-fav-btn--active{background:rgba(255,71,87,.15)!important;border-color:#ff4757!important;color:#ff4757!important}
 .rgs-empty{grid-column:1/-1;text-align:center;color:rgba(255,255,255,.3);font-family:'Poppins',sans-serif;font-size:14px;padding:48px 0}
 .recipe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
 
@@ -300,6 +358,9 @@
 .rc-photo.rc-photo--loaded img{display:block}
 .rc-photo-emoji{font-size:2.8rem;line-height:1;opacity:.6;transition:opacity .25s}
 .rc-photo.rc-photo--loaded .rc-photo-emoji{opacity:0;pointer-events:none}
+.rc-fav{position:absolute;top:8px;right:8px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.5);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .22s;padding:0;backdrop-filter:blur(4px)}
+.rc-fav:hover{background:rgba(0,0,0,.7);color:#ff4757;transform:scale(1.1)}
+.rc-fav--active{color:#ff4757!important;background:rgba(255,71,87,.25)!important}
 
 .rm-modal-photo{width:100%;height:200px;border-radius:14px;overflow:hidden;position:relative;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;margin-bottom:12px;flex-shrink:0}
 .rm-modal-photo img{width:100%;height:100%;object-fit:cover;display:none;position:absolute;inset:0}

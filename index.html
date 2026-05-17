@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" href="./css/assets/fare.jpeg">
 </head>
 <body>
-<script src="./js/firebase.js"></script>
     <!--SOL SİDEBAR-->
     <div class="sidebar" id="sidebar">
         <h2>Evdeki Restoranım</h2>
@@ -64,6 +63,12 @@
             <div class="ps-card-title">Mutfakta Panik</div>
             <div class="ps-card-sub" id="psHighScore">En Yüksek Puan: —</div>
         </a>
+        <a href="javascript:void(0)" class="ps-card" id="psFavBtn" style="display:none">
+          <div class="ps-card-icon">❤️</div>
+          <div class="ps-card-label">Favorilerim</div>
+          <div class="ps-card-title">Favori Tarifler</div>
+          <div class="ps-card-sub" id="psFavCount">0 tarif</div>
+        </a>
         <button class="ps-logout" id="psLogoutBtn">⎋ &nbsp;Çıkış Yap</button>
     </div>
 
@@ -98,7 +103,9 @@
     </div>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
+<script src="./js/favorites.js"></script>
 <script src="./js/script.js"></script>
 <script src="./js/recipe-cards.js"></script>
 </body>
